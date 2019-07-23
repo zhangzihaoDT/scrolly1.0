@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Responsive Design</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="lib/csv2geojson.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css"
+    />
+    <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+    <!-- <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
+    <script src="lib/intersection-observer.js"></script>
+    <script src="lib/stickyfill.min.js"></script>
+    <script src="lib/scrollama.min.js"></script>
+  </head>
+  <style>
+    .page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menu {
+      display: flex;
+      /* height: auto; */
+      height: 10vh;
+      justify-content: inherit;
+      align-items: inherit;
+    }
+    .illustration img {
+      width: 100%;
+      display: block;
+    }
+
+    .photo img {
+      width: 100%;
+      display: block;
+    }
+    #scrolly {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    #map {
+      position: -webkit-sticky;
+      position: sticky;
+      width: 100%;
+      background-color: #3b3b3b;
+    }
+    article {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .step {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /*属性设置段*/
+    .content {
+      background-color: #eaedf0;
+      height: 600px;
+    }
+
+    .sign-up {
+      background-color: #d6e9fe;
+    }
+
+    .feature-1 {
+      background-color: #f5cf8e;
+    }
+
+    .feature-2 {
+      background-color: #f09a9d;
+    }
+
+    .feature-3 {
+      background-color: #c8c6fa;
+    }
+    /* Mobile Styles */
+    @media only screen and (max-width: 400px) {
+      body {
+        background-color: #f09a9d; /* Red */
+      }
+    }
+
+    /* Tablet Styles */
+    @media only screen and (min-width: 401px) and (max-width: 1080px) {
+      body {
+        background-color: #f5cf8e; /* Yellow */
+      }
+    }
+
+    /* Desktop Styles */
+    @media only screen and (min-width: 1081px) {
+      .page {
+        margin: 0 auto;
+      }
+      #scrolly {
+        width: 100%;
+      }
+      #map {
+        flex: 3;
+        order: 1;
+      }
+      article {
+        flex: 1;
+        order: 2;
+        min-width: 240px;
+        max-width: 400px;
+      }
+    }
+  </style>
+  <body>
+    <div class="page">
+      <section class="menu">
+        <div class="photo">
+          <picture>
+            <source media="(min-width: 401px)" srcset="images/photo-big.jpg" />
+            <source media="(max-width: 400px)" srcset="images/photo-tall.jpg" />
+            <img src="images/photo-small.jpg" />
+          </picture>
+        </div>
+      </section>
+      <section id="scrolly">
+        <div id="map">
+          <p>0</p>
+          <div id="maskLoading">
+            <div class="loader">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <article>
+          <div id="beijing" class="step content">
+            <div class="illustration">
+              <img
+                src="illustration-small.png"
+                srcset="
+                  images/illustration-small.png 1x,
+                  images/illustration-big.png   2x
+                "
+                style="max-width: 500px"
+              />
+            </div>
+          </div>
+          <div id="aldgate" class="step sign-up">
+            <p>STEP 2</p>
+          </div>
+          <div id="london-bridge" class="step feature-1">
+            <p>STEP 3</p>
+          </div>
+          <div id="woolwich" class="step feature-2">
+            <p>STEP 4</p>
+          </div>
+          <div id="gloucester" class="step feature-3">
+            <p>STEP 5</p>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <script>
+      window.onbeforeunload = function() {
+        window.scrollTo(0, 0);
+      };
+      // 为方便起见使用d3
+      var main = d3.select(".page");
+      var scrolly = main.select("#scrolly");
+      var figure = scrolly.select("#map");
+      var article = scrolly.select("article");
+      var step = article.selectAll(".step");
+
+      // initialize the scrollama
+      var scroller = scrollama();
+
+      // generic window resize listener event
+      function handleResize() {
+        // 1. update height of step elements
+        var stepH = Math.floor(window.innerHeight * 0.5); //向下取整
+        var stepH_desktop = Math.floor(window.innerHeight * 0.75); //向下取整
+        console.log(stepH);
+
+        var figureHeight = window.innerHeight / 2;
+        var figureMarginMiddle = (window.innerHeight - figureHeight) / 2;
+        var figureHeightFull = window.innerHeight;
+        var figureMarginTop = 0;
+        if (window.innerWidth > 1080) {
+          step.style("height", stepH_desktop + "px");
+          figure
+            .style("height", figureHeightFull + "px")
+            .style("top", figureMarginTop + "px");
+        } else {
+          step.style("height", stepH + "px");
+          figure
+            .style("height", figureHeight + "px")
+            .style("top", figureMarginTop + "px");
+        }
+
+        // 3. tell scrollama to update new element dimensions
+        scroller.resize();
+      }
+      // scrollama event handlers
+      function handleStepEnter(response) {
+        // response = { element, direction, index }
+        console.log(response.element.id);
+        const currentStep = response.element.id;
+        const currentDirection = response.direction;
+        const directionIs = (index, direction) => {
+          return currentStep === index && currentDirection === direction;
+        };
+        if (directionIs("aldgate", "down") || directionIs("aldgate", "up")) {
+          map.flyTo({
+            duration: 6000,
+            center: [-0.07571203, 51.51424049],
+            bearing: 150,
+            zoom: 15,
+            pitch: 0
+          });
+        } else if (directionIs("beijing", "up")) {
+          mapReset();
+        } else if (
+          directionIs("london-bridge", "down") ||
+          directionIs("london-bridge", "up")
+        ) {
+          map.flyTo({
+            bearing: 90,
+            center: [-0.08533793, 51.50438536],
+            zoom: 13,
+            speed: 0.6,
+            pitch: 40
+          });
+          map.setLayoutProperty(pointsLayer, "visibility", "none");
+        } else if (
+          directionIs("woolwich", "down") ||
+          directionIs("woolwich", "up")
+        ) {
+          map.easeTo({
+            bearing: 90,
+            center: [0.05991101, 51.48752939],
+            zoom: 12.3
+          });
+          map.setLayoutProperty(pointsLayer, "visibility", "visible");
+        } else if (directionIs("gloucester", "down")) {
+          mapReset();
+        }
+
+        // add color to current step only
+        step.classed("is-active", function(d, i) {
+          return i === response.index;
+        });
+
+        // update graphic based on step
+        figure.select("p").text(response.index + 1);
+      }
+
+      function setupStickyfill() {
+        d3.selectAll(".sticky").each(function() {
+          Stickyfill.add(this);
+        });
+      }
+      function init() {
+        setupStickyfill();
+
+        // 1. 强制调整大小以确保将适当的尺寸发送到scrollama
+        handleResize();
+
+        // 2. 设置滚动条传递选项
+        // 	  这也会初始化trigger observations
+        // 3. 绑定scrollalama事件处理程序（这可以链接如下）
+        scroller
+          .setup({
+            step: "#scrolly article .step",
+            offset: 0.5,
+            debug: true
+          })
+          .onStepEnter(handleStepEnter);
+
+        // 设置调整大小事件
+        window.addEventListener("resize", handleResize);
+      }
+      // 开始吧～
+      init();
+      //这里要注意：一定要先初始化，才能加载地图，否则mapboxGL无法明确既定的CSS方案来设置地图
+      mapboxgl.accessToken =
+        "pk.eyJ1Ijoiemhhbmd6aWhhbyIsImEiOiJjamN6dDF1bzMwenphMzNuMjlqaG1vOTJlIn0.VdSfOPUC85YcWqs3LZeXmA";
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/zhangzihao/cjxx2w5es0jx21cla17m7xu5x", //DESIGN2019
+        center: [116.38833178, 39.901996392], // BEIJING
+        zoom: 10.6,
+        bearing: 27, //轴旋转
+        pitch: 45 //视角
+      });
+      // function to reset map to original position
+      const mapReset = () => {
+        map.easeTo({
+          bearing: 27,
+          center: [116.38833178, 39.901996392], // BEIJING
+          zoom: 10.6,
+          pitch: 20
+        });
+        map.setLayoutProperty(pointsLayer, "visibility", "visible");
+      };
+      map.on("load", function() {
+        map.addSource("bj-business-area", {
+          type: "geojson",
+          data: "data/bj_bz.geojson"
+        });
+        // debugger;
+        $("#maskLoading").addClass("hidden");
+        map.addLayer(
+          {
+            id: "bj-business",
+            type: "fill",
+            source: "bj-business-area",
+            paint: {
+              "fill-color": "#00112c",
+              "fill-opacity": 0.15
+            },
+            filter: [
+              "all",
+              // ["==", "$type", "Polygon"],
+              ["match", ["geometry-type"], ["Polygon"], true, false],
+              [
+                "match",
+                ["get", "business_z"],
+                [
+                  "中关村",
+                  "上地",
+                  "望京",
+                  "复兴门",
+                  "朝外大街",
+                  "东直门",
+                  "国贸",
+                  "建外大街",
+                  "三里屯",
+                  "双井"
+                ],
+                true,
+                false
+              ]
+            ]
+          },
+          "waterway-label"
+        );
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "data/airports.csv",
+          dataType: "text",
+          success: function(csvData) {
+            makeGeoJSON(csvData);
+          }
+        });
+      });
+      function makeGeoJSON(csvData) {
+        csv2geojson.csv2geojson(
+          csvData,
+          {
+            latfield: "latitude",
+            lonfield: "longitude",
+            numericfield: "value",
+            delimiter: ","
+          },
+          function(err, data) {
+            map.on("load", function() {
+              map.addLayer({
+                id: "Top10",
+                type: "circle",
+                source: {
+                  type: "geojson",
+                  data: data
+                },
+                paint: {
+                  "circle-radius": [
+                    "/",
+                    ["-", ["to-number", ["get", "value"], 100], 80],
+                    0.5
+                  ],
+                  "circle-opacity": 0.8,
+                  "circle-color": "#08b852",
+                  "circle-stroke-width": 1.0,
+                  "circle-stroke-color": "#ffffff"
+                }
+              });
+            });
+            data.features.forEach(function(marker) {
+              var el = document.createElement("div");
+              el.className = "marker";
+              console.log(marker);
+              new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates.slice())
+                .setPopup(
+                  new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .setHTML("<h2>" + marker.properties.rank + "</h2>")
+                )
+                .addTo(map);
+            });
+          }
+        );
+      }
+      const areaLayer = "bj-business";
+      const pointsLayer = "Top10";
+    </script>
+  </body>
+</html>
