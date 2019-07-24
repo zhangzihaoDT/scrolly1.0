@@ -35,16 +35,16 @@
       justify-content: inherit;
       align-items: inherit;
     }
-    .illustration img {
-      width: 100%;
-      display: block;
-    }
 
     .photo img {
       width: 100%;
       display: block;
     }
-    #scrolly {
+    .illustration img {
+      width: 100%;
+      display: block;
+    }
+    .scrolly {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
@@ -102,6 +102,9 @@
       body {
         background-color: #f5cf8e; /* Yellow */
       }
+      .scrolly {
+        width: 100%;
+      }
     }
 
     /* Desktop Styles */
@@ -109,7 +112,7 @@
       .page {
         margin: 0 auto;
       }
-      #scrolly {
+      .scrolly {
         width: 100%;
       }
       #map {
@@ -135,7 +138,7 @@
           </picture>
         </div>
       </section>
-      <section id="scrolly">
+      <section class="scrolly">
         <div id="map">
           <p>0</p>
           <div id="maskLoading">
@@ -184,7 +187,7 @@
       };
       // 为方便起见使用d3
       var main = d3.select(".page");
-      var scrolly = main.select("#scrolly");
+      var scrolly = main.select(".scrolly");
       var figure = scrolly.select("#map");
       var article = scrolly.select("article");
       var step = article.selectAll(".step");
@@ -288,7 +291,7 @@
         // 3. 绑定scrollalama事件处理程序（这可以链接如下）
         scroller
           .setup({
-            step: "#scrolly article .step",
+            step: ".scrolly article .step",
             offset: 0.5,
             debug: true
           })
