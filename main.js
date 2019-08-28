@@ -1137,7 +1137,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "哈尔冰") {
+        } else if (region === "哈尔滨") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
