@@ -1,3 +1,4 @@
+
 //每次刷新回到顶部
 window.onbeforeunload = function() {
   window.scrollTo(0, 0);
