@@ -1,429 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
-    />
-    <title>Responsive Design</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="lib/csv2geojson.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css"
-    />
-    <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
-    <!-- <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
-    <script src="lib/intersection-observer.js"></script>
-    <script src="lib/stickyfill.min.js"></script>
-    <script src="lib/scrollama.min.js"></script>
-  </head>
-  <style>
-    .page {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .menu {
-      display: flex;
-      /* height: auto; */
-      height: 10vh;
-      justify-content: inherit;
-      align-items: inherit;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>凌空经济</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css" rel="stylesheet" />
+  <!-- <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script> -->
+  <script src="lib/turf@5.1.6.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@5.9.2/dist/d3.min.js"></script>
+  <script src="lib/sankey.js"></script>
+  <!-- <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
+  <script src="lib/intersection-observer.js"></script>
+  <script src="lib/stickyfill.min.js"></script>
+  <script src="lib/scrollama.min.js"></script>
+</head>
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #menu {
+    display: flex;
+    height: auto;
+    background-color: black;
+  }
+
+  .full-page {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .photo {
+    height: 100vh;
+    width: 100vw;
+    color: #fff;
+    /* For browsers that do not support gradients */
+    background-image: url("images/sky.png"), linear-gradient(to bottom right,
+        #000000,
+        white);
+    /* Standard syntax (must be last) */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .photo .content {
+    margin: -10vh auto 25vh;
+  }
+
+  .logo {
+    margin: 0vh auto 25vh;
+  }
+
+  .logo img {
+    width: 90px;
+  }
+
+  .scrolly {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-item {
+    background-color: #292d36;
+    height: 10vh;
+    flex: 1;
+  }
+
+  .illustration img {
+    width: 100%;
+    display: block;
+  }
+
+  .demo a {
+    z-index: 2;
+    display: inline-block;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    color: #fff;
+    font: normal 400 20px/1 'Josefin Sans', sans-serif;
+    letter-spacing: .1em;
+    text-decoration: none;
+    transition: opacity .3s;
+    cursor: pointer;
+  }
+
+  .demo a:hover {
+    opacity: .5;
+  }
+
+  #start {
+    position: absolute;
+    bottom: 5vh;
+  }
+
+  #start a {
+    padding-top: 60px;
+  }
+
+  #start a span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 30px;
+    height: 50px;
+    margin-left: -15px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    box-sizing: border-box;
+  }
+
+  #start a span::before {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    content: '';
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    background-color: #fff;
+    border-radius: 100%;
+    -webkit-animation: sdb10 1s infinite;
+    animation: sdb10 1s infinite;
+    box-sizing: border-box;
+  }
+
+  @-webkit-keyframes sdb10 {
+    0% {
+      -webkit-transform: translate(0, 0);
+      opacity: 0;
     }
 
-    .photo img {
-      width: 100%;
-      display: block;
-    }
-    .illustration img {
-      width: 100%;
-      display: block;
-    }
-    .scrolly {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+    40% {
+      opacity: 1;
     }
 
-    #map {
-      position: -webkit-sticky;
-      position: sticky;
-      width: 100%;
-      background-color: #3b3b3b;
-    }
-    article {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .step {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    80% {
+      -webkit-transform: translate(0, 20px);
+      opacity: 0;
     }
 
-    /*属性设置段*/
-    .content {
-      background-color: #eaedf0;
-      height: 600px;
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes sdb10 {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0;
     }
 
-    .sign-up {
-      background-color: #d6e9fe;
+    40% {
+      opacity: 1;
     }
 
-    .feature-1 {
-      background-color: #f5cf8e;
+    80% {
+      transform: translate(0, 20px);
+      opacity: 0;
     }
 
-    .feature-2 {
-      background-color: #f09a9d;
+    100% {
+      opacity: 0;
     }
+  }
+</style>
 
-    .feature-3 {
-      background-color: #c8c6fa;
-    }
-    /* Mobile Styles */
-    @media only screen and (max-width: 400px) {
-      body {
-        background-color: #f09a9d; /* Red */
-      }
-    }
-
-    /* Tablet Styles */
-    @media only screen and (min-width: 401px) and (max-width: 1080px) {
-      body {
-        background-color: #f5cf8e; /* Yellow */
-      }
-      .scrolly {
-        width: 100%;
-      }
-    }
-
-    /* Desktop Styles */
-    @media only screen and (min-width: 1081px) {
-      .page {
-        margin: 0 auto;
-      }
-      .scrolly {
-        width: 100%;
-      }
-      #map {
-        flex: 3;
-        order: 1;
-      }
-      article {
-        flex: 1;
-        order: 2;
-        min-width: 240px;
-        max-width: 400px;
-      }
-    }
-  </style>
-  <body>
-    <div class="page">
-      <section class="menu">
-        <div class="photo">
-          <picture>
-            <source media="(min-width: 401px)" srcset="images/photo-big.jpg" />
-            <source media="(max-width: 400px)" srcset="images/photo-tall.jpg" />
-            <img src="images/photo-small.jpg" />
-          </picture>
+<body>
+  <div class="page">
+    <section id="menu" class="full-page">
+      <div id="maskLoading" class="content">
+        <h1>3万条航班数据背后，230座城市的天空之战</h1>
+        <div class="loader">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
         </div>
-      </section>
-      <section class="scrolly">
-        <div id="map">
-          <p>0</p>
-          <div id="maskLoading">
-            <div class="loader">
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
+        <h6>请稍后，全文加载时间约8秒</h6>
+      </div>
+      <div class="photo">
+        <div class="logo">
+          <img src="./images/dt财经logo-02.png">
+        </div>
+        <div class="content">
+          <h1>3万条航班数据背后，230座城市的天空之战</h1>
+          <h4>
+            2018年，中国大陆已经有230个城市拥有定期通航的民航机场，全国全年的航空旅客总吞吐量超过12亿人次。随着北京大兴机场的建成通航、上海第三机场的规划，城市间的机场经济进入新一轮融合与竞争。站在城市研究的视角，机场吞吐量和航线通达情况一定程度上代表城市商旅活动的活跃度，进而与城市首位度和经济势能挂钩。通过机场的航线与客流数据，我们将尝试着描绘一个区域经济发展的立体图景，看城市及城市群如何吸纳和释放TA们强大的经济势能。
+            </4>
+        </div>
+        <div id="start" class="demo">
+          <a id="scrollDown"><span></span>滚动</a>
+        </div>
+      </div>
+    </section>
+    <section class="scrolly">
+      <div id="map">
+
+      </div>
+
+      <article>
+        <div id="capacity" class="step">
+          <div class="content">
+            <h2>人口的聚集让城市出行需求不断扩大</h2>
+            <p>
+              2009年至2018年十年间，中国新增了69个民航机场，旅客总吞吐量增长了1.6倍。2018年，全国吞吐量过千万人次的城市已经达到37个，而北京首都机场的旅客吞吐量终于突破1亿人次，成为继美国亚特兰大机场后，全球第二个旅客吞吐量过亿人次的机场。
+            </p>
+            <p>
+              当把全部机场吞吐量变化加上地理位置的考察后，我们发现增长是围绕城市群或者说机场群扎堆发生的，尽管所有机场都存在增长，但京津冀、长三角、珠三角和成渝城市群的优势越来越显著。
+            </p>
+          </div>
+          <div id="console">
+            <!--创建一个图例-->
+            <div class="session">
+              <h3>吞吐量（人次）</h3>
+              <div class="row colors"></div>
+              <div class="row labels">
+                <div class="label">20万</div>
+                <div class="label">1百万</div>
+                <div class="label">1千万</div>
+                <div class="label">2千万</div>
+                <div class="label">5千万</div>
+                <div class="label">1亿</div>
+              </div>
+            </div>
+            <h3>2009～2018全国机场年吞吐量增长情况</h3>
+            <!--创建一个时间滑块-->
+            <div class="session" id="sliderbar">
+              <h2><label id="active-hour">2018</label>年</h2>
+              <input id="slider" class="custom" type="range" min="2009" max="2018" step="1" value="2018" />
+            </div>
+            <div id="histogram"></div>
+            <p class="remarks">
+              数据来源：
+              <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">中国民航局</a>
+              <br />注：统计数据不包括港澳台
+            </p>
+          </div>
+
+        </div>
+        <div id="airlines" class="step">
+          <div class="content">
+            <p>
+              旅客吞吐量更多能表明商旅活动的活跃度，用来度量一个机场的枢纽程度却是不够的。要评估一个机场在这个网络中的重要程度，还需要回答这些问题：通过机场，一座城市连通了多少远方？与谁往来更加亲密？辐射势力范围有多大？
+            </p>
+          </div>
+          <div class="content">
+            <p>
+              我们借用了网络分析（Network
+              Analysis）中的中心度概念。中心度考量网络中各个节点的重要程度和核心性，通过量化节点之间的关系计算得出。与此相对应，机场就是一个个节点，通过航线的交织联系形成了一个航空网络。我们综合考虑了2018年各机场间的航线数量、进港出港航班数量等数据，通过算法计算得到每个机场的中心度。中心度越大，表示机场在整个航空网络中的重要性更高、区域辐射能力更强，这些强势机场也就是整个航空网络中的枢纽。
+
+            </p>
+          </div>
+          <!-- <div class="illustration">
+            <img src="illustration-small.png" srcset="
+                        images/illustration-small.png 1x,
+                        images/illustration-big.png   2x
+                      " style="max-width: 500px" />
+          </div> -->
+        </div>
+
+        <div id="centrality" class="step">
+
+          <div id="console">
+            <p>
+              将所有机场的中心度投射到地图上，我们发现全国机场中心度分布呈现出东高西低、南高北低的特点，这倒与很多经济发展相关指标的表现相似。
+            </p>
+            <!--创建一个图例-->
+            <div class="session">
+              <h3>网络中心度</h3>
+              <div class="row colors"></div>
+              <div class="row labels">
+                <div class="label">0</div>
+                <div class="label">0.2</div>
+                <div class="label">0.4</div>
+                <div class="label">0.6</div>
+                <div class="label">0.8</div>
+                <div class="label">1</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <article>
-          <div id="beijing" class="step content">
-            <div class="illustration">
-              <img
-                src="illustration-small.png"
-                srcset="
-                  images/illustration-small.png 1x,
-                  images/illustration-big.png   2x
-                "
-                style="max-width: 500px"
-              />
+        <div id="TOP30" class="step">
+          <div class="content">
+            <p>
+              按照机场中心度对城市进行排名，TOP2依旧是北京与上海，西安跃居第3位，中心度与上海浦东机场相差无几，此外，西南3城依旧占据着较高的排位。值得注意的是，广州与深圳的中心度排名并不够靠前，这意味着，尽管商旅活动活跃程度领先，但是与其他区域的连通性或者说对其他区域的影响力，还不够高。
+            </p>
+            <p>在全国230个城市的机场中，中心度排至TOP 30的机场基本可认为是枢纽型机场。从枢纽机场的分布中，我们能看到城市与区域影响力更明显的特征。</p>
+          </div>
+          <div id="console">
+            <div id="bubble"></div>
+            <p class="remarks">
+              数据来源：
+              <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">飞常准</a>
+              <br />注：本文的中心度主要指网络分析中的度中心度，通过全国机场在2018年全年航线数量和出港、入港的航班量等因素算法计算得到，用以衡量节点在网络中的重要程度。统计数据不包括港澳台。
+            </p>
+          </div>
+        </div>
+        <div id="china-economicZone" class="step">
+          <div class="content">
+            <h2>长三角城市整体枢纽度强于京津冀</h2>
+            <p>
+              国家发改委在2017年提出京津冀、长三角、珠三角将在2025年形成三大世界级机场群。截至2018年，这三个机场群的发展特点日趋明显。</p>
+            <p>
+              作为一个共同体，长三角现在已经建成16个民用机场，其中有3个是最高级别的4F级机场。2018年，长三角机场群的总吞吐量达到2.29亿。不管是机场总体数量、建设水平还是吞吐量规模，长三角都领先于另两大机场群。京津冀和珠三角各有2个4F机场，京津冀凭着机场数量的优势，吞吐量略大于珠三角。
+            </p>
+            <p>
+              从机场群的整体协同发展角度看，珠三角主要依靠广州白云机场和深圳宝安机场带动整个珠三角地区的对外联系，广州白云机场作为区域内的top机场占到总吞吐量的53%。上海浦东机场在长三角的吞吐量占比则更低，为32%。这保证了长三角各机场协同发展，内部差距不至于过大。
+            </p>
+            <p>
+              而在京津冀，巨无霸的北京首都机场占到了整个机场群吞吐量的70%，其他机场并没有贡献出太多力量。
+            </p>
+          </div>
+        </div>
+        <div id="china-xinan" class="step">
+          <div class="content">
+            <h2>另一核心机场群分布在西南。</h2>
+            <p>
+              成都双流机场（第4名）与重庆江北机场（第5名）中心度排名超过了广州白云，另有昆明长水机场（第7名）与贵阳龙洞堡机场（第14名）也排名靠前。成都双流机场从2011年开始，吞吐量连续八年超过深圳宝安机场，并且在2015年超过了上海虹桥机场后，一直稳坐吞吐量第四的宝座。中心度和吞吐量背后，这片土地在经济崛起的跑道上已开始加速，不仅坐拥得天独厚的旅游资源，近年成渝两地的商业交流、经济活动密集，对于人才的吸引力越来越强。
+            </p>
+          </div>
+        </div>
+        <div id="china-huazhongAndDongbei" class="step">
+          <div class="content">
+            <p>
+              在城市航空网络里，和龙争虎斗的华东、华南、西南等地相比，华中和东北则有一种“热闹都是ta们的”的落寞。华中的长沙黄花机场（第12名）、郑州新郑机场（第13名）、武汉天河机场（第22名）都算是枢纽，但奈何实力比较平均，缺乏一个更显眼的区域领头者。不过，这与地理区位对航空的依赖度、发达的高铁分流等原因相关，也并不能就此绝对地说明华中失意。
+              地理位置边角、高铁不够发达的东北，弱势却实在没有上述理由，枢纽机场在机场中心度TOP30中位列中下游，着实就是这些年发展的另一道缩影。
+            </p>
+          </div>
+        </div>
+        <div id="region-concat" class="step">
+          <div class="content">
+            <p>
+              透过城市群枢纽城市的联系动向，我们也大致窥见了几个城市群在航空网络上的互动轮廓。与枢纽城市群来往最亲密的，仍旧是枢纽城市群，京津冀、长三角、珠三角与成渝城市间联系颇密切，这一定程度上意味着几大核心城市群间紧密的商旅往来。再进一步在各城市群间区分下亲疏远近，除了前文提到的珠三角更爱上海，成渝东进的网络中，与长三角的关系并不如跟其他两个区域那般亲密。
+              如果以辐射更多区域枢纽城市作为评价一个区域机场航空势力的标准，那么华东地区与西南地区无疑是势力最为磅礴的，这与地理位置靠边、要求更多远距离出行或许有些关系。但同样有类似情况的华北与东北，尽管坐拥北京，与其他区域航空枢纽城市的整体连接也还是稀薄。
+            </p>
+          </div>
+          <div id="console">
+            <div class="row" id="filters">
+              <input id="all" type="button" name="toggle" value="TOP10" checked="checked" />
+              <input id="Beijing" type="button" name="toggle" value="北京" />
+              <input id="Shanghai" type="button" name="toggle" value="上海" />
+              <input id="Harbin" type="button" name="toggle" value="哈尔冰" />
+              <input id="Xi'an" type="button" name="toggle" value="西安" />
+              <input id="Changsha" type="button" name="toggle" value="长沙" />
+              <input id="Chengdu" type="button" name="toggle" value="成都" />
+              <input id="Guangzhou" type="button" name="toggle" value="广州" />
+            </div>
+            <div class="session">
+              <h3>全国地理区核心航空枢纽联通城市TOP10</h3>
+              <div id="sankey"></div>
+              <p class="remarks">
+                数据来源：
+                <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95">飞常准</a>
+                <br />注：统计数据不包括港澳台。线条粗细表示航班量班次数量。
+              </p>
             </div>
           </div>
-          <div id="aldgate" class="step sign-up">
-            <p>STEP 2</p>
+        </div>
+        <div id="gloucester" class="step">
+          <div class="content">
+            <p>说到这里，关于未来城市与区域竞争的格局，我们在航班数据中也窥见了一角。城市战争的格局已经多年没有太大变化，一线稳固，强二线城市蠢蠢欲动，排名上下间或有些浮动——这在航空网络格局中也是一样。</p>
+            <p>
+              但代表未来的区域竞争看起来还存在变数，长三角一超多强，集体作战的辐射势力、融合程度将给城市群等级提升带来一些期待；双雄并起的珠三角次之，在接入粤港澳大湾区后存在诸多可能；成渝双生集西部万千宠爱于一身，新产业、商业和旅游开发都存在潜力。
+            </p>
+            <p>京津冀老生常谈的区域发展问题，在航线网络枢纽度中亦体现出来，即使拥有全国最强枢纽城市，但当谈及城市群整体能级时，战斗力往往难以爆表。</p>
+            <p>可以肯定的是，城市群的竞争，正在越来越激烈。</p>
           </div>
-          <div id="london-bridge" class="step feature-1">
-            <p>STEP 3</p>
+          <div id="console">
+            <input id="getback" type="button" name="toggle" value="返回首页" checked="checked" />
           </div>
-          <div id="woolwich" class="step feature-2">
-            <p>STEP 4</p>
-          </div>
-          <div id="gloucester" class="step feature-3">
-            <p>STEP 5</p>
-          </div>
-        </article>
-      </section>
-    </div>
 
-    <script>
-      window.onbeforeunload = function() {
-        window.scrollTo(0, 0);
-      };
-      // 为方便起见使用d3
-      var main = d3.select(".page");
-      var scrolly = main.select(".scrolly");
-      var figure = scrolly.select("#map");
-      var article = scrolly.select("article");
-      var step = article.selectAll(".step");
+        </div>
+      </article>
+    </section>
+    <section class="footer">
+      <div class="footer-item footer-one"></div>
+      <div class="footer-item footer-two"></div>
+      <div class="footer-item footer-three"></div>
+    </section>
+  </div>
 
-      // initialize the scrollama
-      var scroller = scrollama();
+  <script src="chart.js"></script>
+  <script src="main.js"></script>
+</body>
 
-      // generic window resize listener event
-      function handleResize() {
-        // 1. update height of step elements
-        var stepH = Math.floor(window.innerHeight * 0.5); //向下取整
-        var stepH_desktop = Math.floor(window.innerHeight * 0.75); //向下取整
-        console.log(stepH);
-
-        var figureHeight = window.innerHeight / 2;
-        var figureMarginMiddle = (window.innerHeight - figureHeight) / 2;
-        var figureHeightFull = window.innerHeight;
-        var figureMarginTop = 0;
-        if (window.innerWidth > 1080) {
-          step.style("height", stepH_desktop + "px");
-          figure
-            .style("height", figureHeightFull + "px")
-            .style("top", figureMarginTop + "px");
-        } else {
-          step.style("height", stepH + "px");
-          figure
-            .style("height", figureHeight + "px")
-            .style("top", figureMarginTop + "px");
-        }
-
-        // 3. tell scrollama to update new element dimensions
-        scroller.resize();
-      }
-      // scrollama event handlers
-      function handleStepEnter(response) {
-        // response = { element, direction, index }
-        console.log(response.element.id);
-        const currentStep = response.element.id;
-        const currentDirection = response.direction;
-        const directionIs = (index, direction) => {
-          return currentStep === index && currentDirection === direction;
-        };
-        if (directionIs("aldgate", "down") || directionIs("aldgate", "up")) {
-          map.flyTo({
-            duration: 6000,
-            center: [-0.07571203, 51.51424049],
-            bearing: 150,
-            zoom: 15,
-            pitch: 0
-          });
-        } else if (directionIs("beijing", "up")) {
-          mapReset();
-        } else if (
-          directionIs("london-bridge", "down") ||
-          directionIs("london-bridge", "up")
-        ) {
-          map.flyTo({
-            bearing: 90,
-            center: [-0.08533793, 51.50438536],
-            zoom: 13,
-            speed: 0.6,
-            pitch: 40
-          });
-          map.setLayoutProperty(pointsLayer, "visibility", "none");
-        } else if (
-          directionIs("woolwich", "down") ||
-          directionIs("woolwich", "up")
-        ) {
-          map.easeTo({
-            bearing: 90,
-            center: [0.05991101, 51.48752939],
-            zoom: 12.3
-          });
-          map.setLayoutProperty(pointsLayer, "visibility", "visible");
-        } else if (directionIs("gloucester", "down")) {
-          mapReset();
-        }
-
-        // add color to current step only
-        step.classed("is-active", function(d, i) {
-          return i === response.index;
-        });
-
-        // update graphic based on step
-        figure.select("p").text(response.index + 1);
-      }
-
-      function setupStickyfill() {
-        d3.selectAll(".sticky").each(function() {
-          Stickyfill.add(this);
-        });
-      }
-      function init() {
-        setupStickyfill();
-
-        // 1. 强制调整大小以确保将适当的尺寸发送到scrollama
-        handleResize();
-
-        // 2. 设置滚动条传递选项
-        // 	  这也会初始化trigger observations
-        // 3. 绑定scrollalama事件处理程序（这可以链接如下）
-        scroller
-          .setup({
-            step: ".scrolly article .step",
-            offset: 0.5,
-            debug: true
-          })
-          .onStepEnter(handleStepEnter);
-
-        // 设置调整大小事件
-        window.addEventListener("resize", handleResize);
-      }
-      // 开始吧～
-      init();
-      //这里要注意：一定要先初始化，才能加载地图，否则mapboxGL无法明确既定的CSS方案来设置地图
-      mapboxgl.accessToken =
-        "pk.eyJ1Ijoiemhhbmd6aWhhbyIsImEiOiJjamN6dDF1bzMwenphMzNuMjlqaG1vOTJlIn0.VdSfOPUC85YcWqs3LZeXmA";
-      const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/zhangzihao/cjyfhn4l417ns1cqbg2tsxo2h", //DESIGN2019-Lightweight
-        center: [116.38833178, 39.901996392], // BEIJING
-        zoom: 10.6,
-        bearing: 27, //轴旋转
-        pitch: 45 //视角
-      });
-      // function to reset map to original position
-      const mapReset = () => {
-        map.easeTo({
-          bearing: 27,
-          center: [116.38833178, 39.901996392], // BEIJING
-          zoom: 10.6,
-          pitch: 20
-        });
-        map.setLayoutProperty(pointsLayer, "visibility", "visible");
-      };
-      map.on("load", function() {
-        map.addSource("bj-business-area", {
-          type: "geojson",
-          data: "data/bj_bz.geojson"
-        });
-        // debugger;
-        $("#maskLoading").addClass("hidden");
-        map.addLayer(
-          {
-            id: "bj-business",
-            type: "fill",
-            source: "bj-business-area",
-            paint: {
-              "fill-color": "#00112c",
-              "fill-opacity": 0.15
-            },
-            filter: [
-              "all",
-              // ["==", "$type", "Polygon"],
-              ["match", ["geometry-type"], ["Polygon"], true, false],
-              [
-                "match",
-                ["get", "business_z"],
-                [
-                  "中关村",
-                  "上地",
-                  "望京",
-                  "复兴门",
-                  "朝外大街",
-                  "东直门",
-                  "国贸",
-                  "建外大街",
-                  "三里屯",
-                  "双井"
-                ],
-                true,
-                false
-              ]
-            ]
-          },
-          "waterway-label"
-        );
-      });
-      $(document).ready(function() {
-        $.ajax({
-          type: "GET",
-          url: "data/airports.csv",
-          dataType: "text",
-          success: function(csvData) {
-            makeGeoJSON(csvData);
-          }
-        });
-      });
-      function makeGeoJSON(csvData) {
-        csv2geojson.csv2geojson(
-          csvData,
-          {
-            latfield: "latitude",
-            lonfield: "longitude",
-            numericfield: "value",
-            delimiter: ","
-          },
-          function(err, data) {
-            map.on("load", function() {
-              map.addLayer({
-                id: "Top10",
-                type: "circle",
-                source: {
-                  type: "geojson",
-                  data: data
-                },
-                paint: {
-                  "circle-radius": [
-                    "/",
-                    ["-", ["to-number", ["get", "value"], 100], 80],
-                    0.5
-                  ],
-                  "circle-opacity": 0.8,
-                  "circle-color": "#08b852",
-                  "circle-stroke-width": 1.0,
-                  "circle-stroke-color": "#ffffff"
-                }
-              });
-            });
-            data.features.forEach(function(marker) {
-              var el = document.createElement("div");
-              el.className = "marker";
-              console.log(marker);
-              new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates.slice())
-                .setPopup(
-                  new mapboxgl.Popup({ offset: 25 }) // add popups
-                    .setHTML("<h2>" + marker.properties.rank + "</h2>")
-                )
-                .addTo(map);
-            });
-          }
-        );
-      }
-      const areaLayer = "bj-business";
-      const pointsLayer = "Top10";
-    </script>
-  </body>
 </html>
