@@ -192,10 +192,10 @@ function handleStepEnter(response) {
   ) {
     map.flyTo({
       duration: 1500,
-      center: [104.2115, 32],
-      zoom: zoom,
-      pitch: 20,
-      bearing: 1.5 //轴旋转
+      center: [105.71583091589503, 34.54057941327483],
+      zoom: zoom * 1.1,
+      pitch: 27,
+      bearing: 0 //轴旋转
     });
     toggleableLayerIds.forEach(toggleableLayerId => {
       map.setLayoutProperty(toggleableLayerId, "visibility", "none");
@@ -272,8 +272,8 @@ const map = new mapboxgl.Map({
 });
 // function to reset map to original position
 const mapReset = () => {
-  map.jumpTo({
-    // center: [116.38833178, 39.901996392], // BEIJING
+  map.flyTo({
+    duration: 1500,
     center: [104.2115, 32],
     zoom: zoom,
     pitch: 0,
