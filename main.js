@@ -1,4 +1,3 @@
-
 //每次刷新回到顶部
 window.onbeforeunload = function() {
   window.scrollTo(0, 0);
@@ -9,6 +8,7 @@ document.getElementById("getback").addEventListener("click", function() {
 document.getElementById("scrollDown").addEventListener("click", function() {
   window.scrollBy({ top: window.innerHeight, left: 0, behavior: "smooth" });
 });
+
 var zoom = 3.7;
 // 为方便起见使用d3
 var main = d3.select(".page");
@@ -65,7 +65,7 @@ function handleResize() {
 // scrollama event handlers
 function handleStepEnter(response) {
   // response = { element, direction, index }
-  console.log(response.element.id);
+  // console.log(response.element.id);
   const currentStep = response.element.id;
   const currentDirection = response.direction;
   const directionIs = (index, direction) => {
@@ -269,7 +269,8 @@ const map = new mapboxgl.Map({
   bearing: 0, //轴旋转
   center: [104.2115, 32],
   zoom: zoom,
-  maxZoom: 5.75
+  maxZoom: 5.75,
+  interactive: false
 });
 // function to reset map to original position
 const mapReset = () => {
@@ -286,6 +287,7 @@ const mapReset = () => {
   // map.setLayoutProperty(airlinesLayer, "visibility", "visible");
   map.setLayoutProperty(capacityLayer, "visibility", "visible");
 };
+var count = 0;
 
 var files = [
   "data/2008-2018airportCapacity.csv",
@@ -949,7 +951,6 @@ map.on("load", function(e) {
           return d.properties.total_flights;
         })
       );
-      console.log([regionConcatTotalFlightsMax / regionConcatTotalFlightsMin]);
       map.addLayer(
         {
           id: "regionTop10",
@@ -1352,9 +1353,21 @@ map.on("load", function(e) {
 
   // debugger;
   // $("#maskLoading").addClass("hidden");
-  document.getElementById("maskLoading").classList.add("hidden");
+  count++;
+  if (count >= 2) {
+    document.getElementById("maskLoading").classList.add("hidden");
+  }
   document.getElementById("menu").classList.remove("full-page");
   // $(".menu").removeClass("full-page");
+});
+
+var video = document.querySelector("video");
+video.addEventListener("loadeddata", function(e) {
+  console.log("video ready");
+  count++;
+  if (count >= 2) {
+    document.getElementById("maskLoading").classList.add("hidden");
+  }
 });
 
 const airlinesLayer = "airline2018";
