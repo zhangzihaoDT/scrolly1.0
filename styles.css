@@ -248,7 +248,7 @@ input[type="button"] {
     margin: 0vh auto 35vh;
   }
   .logo img {
-    width: 96px;
+    width: 96px !important;
   }
 
   h1 {
