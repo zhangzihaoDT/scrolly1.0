@@ -518,12 +518,16 @@ map.on("load", function(e) {
               ["line-progress"],
               0,
               "#30f5d2",
-              0.5,
+              0.2,
+              "#002252",
+              0.4,
               "#22262f",
+              0.6,
+              "#002252",
               1,
-              "#f7f7f8"
+              "#fddeb2"
             ],
-            "line-opacity": 0.05
+            "line-opacity": 0.07
           },
           layout: {
             "line-cap": "round",
@@ -1356,9 +1360,8 @@ map.on("load", function(e) {
   count++;
   if (count >= 2) {
     document.getElementById("maskLoading").classList.add("hidden");
+    document.getElementById("menu").classList.remove("full-page");
   }
-  document.getElementById("menu").classList.remove("full-page");
-  // $(".menu").removeClass("full-page");
 });
 
 var video = document.querySelector("video");
@@ -1367,6 +1370,7 @@ video.addEventListener("loadeddata", function(e) {
   count++;
   if (count >= 2) {
     document.getElementById("maskLoading").classList.add("hidden");
+    document.getElementById("menu").classList.remove("full-page");
   }
 });
 
@@ -1394,7 +1398,7 @@ const toggleableLayerIds = [
   regionTop10Layer,
   regionTop7Layer
 ];
-console.log(toggleableLayerIds.length);
+console.log("my layers", toggleableLayerIds.length);
 const mapboxLayerPrd = "china-prd";
 const mapboxLayerBth = "china-bth";
 const mapboxLayerYrd = "china-yrd";
