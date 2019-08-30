@@ -335,7 +335,6 @@ files.forEach(function(url) {
 });
 
 map.on("load", function(e) {
-  // console.log("map loaded!", e);
   Promise.all(promises)
     .then(function(csvData) {
       console.log("data coming!");
