@@ -25,26 +25,36 @@
     align-items: center;
   }
 
+  .bg {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-image: url("images/sky.png"), linear-gradient(141deg,
+        #556073 0%,
+        #2f3542 60%,
+        #292d36 85%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    -moz-transition: 0.1s;
+    -o-transition: 0.1s;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+    z-index: -1;
+  }
+
   #menu {
     display: flex;
     height: auto;
-    background-color: black;
   }
 
 
   .photo {
     height: 100vh;
-    width: 100vw;
     color: #fff;
-    /* For browsers that do not support gradients */
-    background-image: url("images/sky.png"), linear-gradient(141deg,
-        #556073 0%,
-        #2f3542 60%,
-        #292d36 85%);
-    /* Standard syntax (must be last) */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,12 +62,19 @@
   }
 
   video {
-    position: absolute;
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
     top: 0;
+    left: 0;
     object-fit: cover;
-    width: 100%;
-    height: 100%;
-
+    background-size: cover;
+    -moz-transition: 0.1s;
+    -o-transition: 0.1s;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+    z-index: -1;
   }
 
   #start {
@@ -195,7 +212,11 @@
 </style>
 
 <body>
+  <div class="bg"></div>
   <div class="page">
+    <video muted loop="loop">
+      <source src="./images/Pexels2252790.mp4" type="video/mp4" />
+    </video>
     <section id="menu" class="full-page">
       <div id="maskLoading" class="content">
         <h1>3万条航班数据背后，230座城市的天空之战</h1>
@@ -221,9 +242,7 @@
         <div id="start" class="demo">
           <a id="scrollDown"><span></span>滚动</a>
         </div>
-        <video muted loop="loop">
-          <source src="./images/Pexels2252790.mp4" type="video/mp4" />
-        </video>
+
       </div>
     </section>
     <section class="scrolly">
