@@ -196,7 +196,7 @@ input[type="button"] {
   padding: 0.2rem 0.8rem;
   margin: 0.2rem;
   outline: none;
-  border: 1px solid transparent;
+  border: 1px solid #f7f7f8;
   background: #2f3542;
   color: white;
   letter-spacing: 1px;
