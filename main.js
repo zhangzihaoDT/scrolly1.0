@@ -33,7 +33,7 @@ function getZoomValue() {
   var stepH = Math.floor(window.innerHeight * 0.5); //向下取整
   var stepH_desktop = Math.floor(window.innerHeight * 0.5); //向下取整
   var scrollyWidth = window.innerWidth;
-  var figureHeight = scrollyWidth * 1.05;
+  var figureHeight = scrollyWidth * 1.025;
   var figureHeightFull = window.innerHeight;
   var figureMarginTop = 0;
   if (window.innerWidth > 960) {
@@ -232,7 +232,7 @@ function proportion() {
   if (window.innerWidth > 720) {
     return 0.5;
   } else {
-    return (window.innerWidth / window.innerHeight) * 1.05;
+    return (window.innerWidth / window.innerHeight) * 1.025;
   }
 }
 function init() {
