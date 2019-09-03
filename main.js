@@ -21,7 +21,7 @@ document.getElementById("hideMap").addEventListener("click", function() {
     figure.style("height", window.innerWidth * 1.025 + "px");
     window.scrollBy({
       top: 48 - window.innerWidth * 1.025,
-      left: 10,
+      left: 0,
       behavior: "smooth"
     });
     document.querySelector("canvas").setAttribute("data-status", "open");
