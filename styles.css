@@ -192,11 +192,11 @@ input[type="range"]:focus {
 
 input[type="button"] {
   line-height: 1rem;
-  padding: 0.1rem 0.5rem;
+  padding: 0.2rem 0.8rem;
   margin: 0.2rem;
   outline: none;
-  border: 1px solid white;
-  background: transparent;
+
+  background: #2f3542;
   color: white;
   letter-spacing: 1px;
   border-radius: 50px;
@@ -204,6 +204,11 @@ input[type="button"] {
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
   transition: all 0.1s ease-in-out;
+}
+
+input[type="button"]:focus {
+  color: #ffe0b0;
+  border: 1px solid #ffe0b0;
 }
 
 /* Mobile Styles */
