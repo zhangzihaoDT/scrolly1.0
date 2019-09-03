@@ -191,15 +191,15 @@ input[type="range"]:focus {
 }
 
 input[type="button"] {
+  cursor: pointer;
   line-height: 1rem;
   padding: 0.2rem 0.8rem;
   margin: 0.2rem;
   outline: none;
-
   background: #2f3542;
   color: white;
   letter-spacing: 1px;
-  border-radius: 50px;
+  border-radius: 1.2rem;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
