@@ -32,10 +32,8 @@ function getZoomValue() {
   // 1. update height of step elements
   var stepH = Math.floor(window.innerHeight * 0.5); //向下取整
   var stepH_desktop = Math.floor(window.innerHeight * 0.5); //向下取整
-  console.log(stepH);
-
-  var figureHeight = (window.innerHeight / 2) * 1;
-  var figureMarginMiddle = (window.innerHeight - figureHeight) / 2;
+  var scrollyWidth = window.innerWidth;
+  var figureHeight = scrollyWidth * 1.05;
   var figureHeightFull = window.innerHeight;
   var figureMarginTop = 0;
   if (window.innerWidth > 960) {
@@ -230,21 +228,26 @@ function setupStickyfill() {
     Stickyfill.add(this);
   });
 }
+function proportion() {
+  if (window.innerWidth > 720) {
+    return 0.5;
+  } else {
+    return (window.innerWidth / window.innerHeight) * 1.05;
+  }
+}
 function init() {
   setupStickyfill();
-
   getZoomValue();
-
   // 1. 强制调整大小以确保将适当的尺寸发送到scrollama
   handleResize();
-
   // 2. 设置滚动条传递选项
   // 	  这也会初始化trigger observations
   // 3. 绑定scrollalama事件处理程序（这可以链接如下）
+
   scroller
     .setup({
       step: ".scrolly article .step",
-      offset: 0.5,
+      offset: proportion(),
       debug: false,
       progress: true
     })
