@@ -20,13 +20,7 @@
     url("https://assets.cbndata.org/cbndata-mobile-web/arab-font/Fs9c-vnSGcx4eZFjrzM-4qWJauAn.ttf");
 }
 
-#map {
-  position: -webkit-sticky;
-  position: sticky;
-  width: 100%;
-  background-color: #3b3b3b;
-  z-index: 1;
-}
+
 
 article {
   width: 100%;

@@ -46,6 +46,22 @@
     z-index: -1;
   }
 
+  #map {
+    position: -webkit-sticky;
+    position: sticky;
+    width: 100%;
+    background-color: #3b3b3b;
+    z-index: 1;
+  }
+
+  #map input[type="button"] {
+    background-color: red;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 2rem;
+    z-index: 1;
+  }
+
   #menu {
     display: flex;
     height: auto;
@@ -247,7 +263,7 @@
     </section>
     <section class="scrolly">
       <div id="map">
-
+        <input id="hideMap" type="button" name="toggle" value="折叠地图" checked="checked" />
       </div>
 
       <article>

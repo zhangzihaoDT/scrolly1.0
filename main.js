@@ -8,6 +8,14 @@ document.getElementById("getback").addEventListener("click", function() {
 document.getElementById("scrollDown").addEventListener("click", function() {
   window.scrollBy({ top: window.innerHeight, left: 0, behavior: "smooth" });
 });
+document.getElementById("hideMap").addEventListener("click", function() {
+  figure.style("height", 48 + "px");
+  window.scrollBy({
+    top: window.innerHeight - 48,
+    left: 0,
+    behavior: "smooth"
+  });
+});
 
 var zoom = 3.7;
 // 为方便起见使用d3
