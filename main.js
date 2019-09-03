@@ -8,25 +8,6 @@ document.getElementById("getback").addEventListener("click", function() {
 document.getElementById("scrollDown").addEventListener("click", function() {
   window.scrollBy({ top: window.innerHeight, left: 0, behavior: "smooth" });
 });
-document.getElementById("hideMap").addEventListener("click", function() {
-  if (document.querySelector("canvas").getAttribute("data-status") != "close") {
-    figure.style("height", 48 + "px");
-    window.scrollBy({
-      top: window.innerWidth * 1.025 - 48,
-      left: 0,
-      behavior: "smooth"
-    });
-    document.querySelector("canvas").setAttribute("data-status", "close");
-  } else {
-    figure.style("height", window.innerWidth * 1.025 + "px");
-    window.scrollBy({
-      top: 48 - window.innerWidth * 1.025,
-      left: 0,
-      behavior: "smooth"
-    });
-    document.querySelector("canvas").setAttribute("data-status", "open");
-  }
-});
 
 var zoom = 3.7;
 // 为方便起见使用d3
@@ -65,6 +46,28 @@ function getZoomValue() {
     figure
       .style("height", figureHeight + "px")
       .style("top", figureMarginTop + "px");
+
+    document.getElementById("hideMap").addEventListener("click", function() {
+      if (
+        document.querySelector("canvas").getAttribute("data-status") != "close"
+      ) {
+        figure.style("height", 48 + "px");
+        window.scrollBy({
+          top: window.innerWidth * 1.025 - 48,
+          left: 0,
+          behavior: "smooth"
+        });
+        document.querySelector("canvas").setAttribute("data-status", "close");
+      } else {
+        figure.style("height", window.innerWidth * 1.025 + "px");
+        window.scrollBy({
+          top: 48 - window.innerWidth * 1.025,
+          left: 0,
+          behavior: "smooth"
+        });
+        document.querySelector("canvas").setAttribute("data-status", "open");
+      }
+    });
   }
 }
 

@@ -20,8 +20,6 @@
     url("https://assets.cbndata.org/cbndata-mobile-web/arab-font/Fs9c-vnSGcx4eZFjrzM-4qWJauAn.ttf");
 }
 
-
-
 article {
   width: 100%;
   display: flex;
@@ -250,7 +248,9 @@ input[type="button"]:focus {
     flex: 3;
     order: 1;
   }
-
+  #map input[type="button"] {
+    display: none;
+  }
   article {
     flex: 1;
     order: 2;
