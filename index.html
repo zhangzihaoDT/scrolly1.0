@@ -54,11 +54,24 @@
     z-index: 1;
   }
 
-  #map input[type="button"] {
-    position: absolute;
-    left: 10px;
-    bottom: calc(9px - 0.2rem);
+  .float-button {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
     z-index: 2;
+    color: white !important;
+  }
+
+  input[type="button"].float-button {
+    background-color: rgba(35, 212, 204, 0.7);
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    border: none;
+  }
+
+  input[checked="release"].float-button {
+    background-color: rgba(35, 212, 204, 0.9);
   }
 
   #menu {
@@ -261,10 +274,8 @@
       </div>
     </section>
     <section class="scrolly">
-      <div id="map">
-        <input id="hideMap" type="button" name="toggle" value="折叠地图" checked="checked" />
-      </div>
-
+      <input class="float-button hidden" id="hideMap" type="button" name="toggle" value="折叠" checked="checked" />
+      <div id="map"></div>
       <article>
         <div id="capacity" class="step">
           <div class="content">

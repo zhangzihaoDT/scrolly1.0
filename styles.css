@@ -41,7 +41,7 @@ article {
   justify-content: center;
   padding: 3vh 0.75rem;
   line-height: 25px;
-  border-bottom: 1px solid #556073;
+  border-bottom: 1px solid #2f3542;
   opacity: 0.25;
   font-size: 13px;
   text-align: left;
@@ -250,9 +250,6 @@ input[type="button"]:focus {
   #map {
     flex: 3;
     order: 1;
-  }
-  #map input[type="button"] {
-    display: none;
   }
   article {
     flex: 1;

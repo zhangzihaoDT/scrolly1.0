@@ -47,25 +47,41 @@ function getZoomValue() {
       .style("height", figureHeight + "px")
       .style("top", figureMarginTop + "px");
 
+    window.addEventListener("scroll", function(e) {
+      var scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > window.innerHeight) {
+        document.getElementById("hideMap").classList.remove("hidden");
+      } else {
+        document.getElementById("hideMap").classList.add("hidden");
+      }
+    });
+
     document.getElementById("hideMap").addEventListener("click", function() {
       if (
         document.getElementById("map").getAttribute("data-status") != "close"
       ) {
-        figure.style("height", 48 + "px");
+        figure.style("height", 4 + "px");
         window.scrollBy({
-          top: window.innerWidth * 1.025 - 48,
+          top: window.innerWidth * 1.025 - 4,
           left: 0,
           behavior: "smooth"
         });
         document.getElementById("map").setAttribute("data-status", "close");
+        document.getElementById("map").style.borderBottom = "4px solid #23d4cc";
+        document.getElementById("hideMap").setAttribute("value", "展开");
+        document.getElementById("hideMap").setAttribute("checked", "release");
       } else {
         figure.style("height", window.innerWidth * 1.025 + "px");
         window.scrollBy({
-          top: 48 - window.innerWidth * 1.025,
+          top: 4 - window.innerWidth * 1.025,
           left: 0,
           behavior: "smooth"
         });
         document.getElementById("map").setAttribute("data-status", "open");
+        document.getElementById("map").style.borderBottom = "none";
+        document.getElementById("hideMap").setAttribute("value", "折叠");
+        document.getElementById("hideMap").setAttribute("checked", "checked");
       }
     });
   }
