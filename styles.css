@@ -4,7 +4,8 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-.mapboxgl-ctrl-bottom-left {
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
   display: none;
 }
 @font-face {
