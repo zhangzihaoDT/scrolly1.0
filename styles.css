@@ -4,6 +4,9 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+.mapboxgl-ctrl-bottom-left {
+  display: none;
+}
 @font-face {
   font-family: Iosevka-bold;
   src: local(Iosevka-bold),

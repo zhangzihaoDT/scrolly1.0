@@ -49,7 +49,7 @@ function getZoomValue() {
 
     document.getElementById("hideMap").addEventListener("click", function() {
       if (
-        document.querySelector("canvas").getAttribute("data-status") != "close"
+        document.getElementById("map").getAttribute("data-status") != "close"
       ) {
         figure.style("height", 48 + "px");
         window.scrollBy({
@@ -57,7 +57,7 @@ function getZoomValue() {
           left: 0,
           behavior: "smooth"
         });
-        document.querySelector("canvas").setAttribute("data-status", "close");
+        document.getElementById("map").setAttribute("data-status", "close");
       } else {
         figure.style("height", window.innerWidth * 1.025 + "px");
         window.scrollBy({
@@ -65,7 +65,7 @@ function getZoomValue() {
           left: 0,
           behavior: "smooth"
         });
-        document.querySelector("canvas").setAttribute("data-status", "open");
+        document.getElementById("map").setAttribute("data-status", "open");
       }
     });
   }
