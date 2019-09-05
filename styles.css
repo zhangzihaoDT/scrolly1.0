@@ -4,28 +4,28 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-/* .mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-left,
 .mapboxgl-ctrl-bottom-right {
   display: none;
-} */
-@font-face {
-  font-family: Iosevka-bold;
-  src: local(Iosevka-bold),
-    url("https://assets.cbndata.org/cbndata-mobile-web/arab-font/FkQav3EzOlrBKG3vBGwt8MIPSwpH.ttf");
 }
 @font-face {
-  font-family: Iosevka-regular;
-  src: local(Iosevka-regular),
-    url("https://assets.cbndata.org/cbndata-mobile-web/arab-font/FqgVQ2n3Sg4Ye8jEBosk2a3Agqog.ttf");
+  font-family: "din-light-webfont";
+  font-style: normal;
+  font-weight: normal;
+  src: local("din-light-webfont"),
+    url("fonts/din-light-webfont.woff") format("woff");
 }
+
 @font-face {
-  font-family: Iosevka-thin;
-  src: local(Iosevka-thin),
-    url("https://assets.cbndata.org/cbndata-mobile-web/arab-font/Fs9c-vnSGcx4eZFjrzM-4qWJauAn.ttf");
+  font-family: "DIN-Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: local("DIN-Bold"), url("fonts/DIN-Bold.woff") format("woff");
 }
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "din-light-webfont", "HelveticaNeue-Light",
+    "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande",
+    sans-serif;
 }
 
 article {
@@ -74,7 +74,7 @@ article {
   padding: 5vh 20px;
 }
 h1 {
-  font-family: Iosevka-bold;
+  font-family: DIN-Bold;
   font-size: 1.625rem;
   line-height: 36px;
   font-weight: 900;
@@ -82,7 +82,7 @@ h1 {
   letter-spacing: 0.1rem;
 }
 h2 {
-  font-family: Iosevka-bold;
+  font-family: DIN-Bold;
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 30px;
@@ -90,7 +90,7 @@ h2 {
 }
 
 h3 {
-  font-family: Iosevka-bold;
+  font-family: DIN-Bold;
   font-size: 1rem;
   font-weight: 300;
   line-height: 20px;
