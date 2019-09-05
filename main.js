@@ -69,7 +69,7 @@ function getZoomValue() {
         });
         document.getElementById("map").setAttribute("data-status", "close");
         document.getElementById("map").style.borderBottom = "4px solid #23d4cc";
-        document.getElementById("hideMap").setAttribute("value", "展开");
+        document.getElementById("hideMap").setAttribute("value", "expand");
         document.getElementById("hideMap").setAttribute("checked", "release");
       } else {
         figure.style("height", window.innerWidth * 1.025 + "px");
@@ -80,7 +80,7 @@ function getZoomValue() {
         });
         document.getElementById("map").setAttribute("data-status", "open");
         document.getElementById("map").style.borderBottom = "none";
-        document.getElementById("hideMap").setAttribute("value", "折叠");
+        document.getElementById("hideMap").setAttribute("value", "fold");
         document.getElementById("hideMap").setAttribute("checked", "checked");
       }
     });

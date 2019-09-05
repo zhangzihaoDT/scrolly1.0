@@ -60,6 +60,7 @@ d3.csv("data/sankey.csv")
     return nest_data;
   })
   .then(function(csv) {
+    console.log(csv);
     var color = d3
       .scaleOrdinal()
       .domain(
