@@ -123,10 +123,6 @@ a {
   color: #30f5d2;
 }
 
-.session {
-  margin-bottom: 20px;
-}
-
 .row {
   height: 12px;
   width: 100%;
@@ -155,7 +151,12 @@ a {
   display: inline-block;
   text-align: center;
 }
-
+.label:first-child {
+  text-align: left;
+}
+.label:last-child {
+  text-align: right;
+}
 .custom {
   width: 100%;
   -webkit-appearance: none !important;

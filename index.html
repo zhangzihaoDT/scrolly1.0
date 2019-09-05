@@ -177,7 +177,7 @@
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
     color: #fff;
-    font: normal 400 20px/1 'Josefin Sans', sans-serif;
+    font-family: DIN-Bold;
     letter-spacing: .1em;
     text-decoration: none;
     transition: opacity .3s;
@@ -306,11 +306,14 @@
     </section>
     <section class="scrolly">
       <nav class="Quick-navigation">
-        <a href="#A" class="Quick-navigation-item">A</a>
-        <a href="#B" class="Quick-navigation-item">B</a>
-        <a href="#C" class="Quick-navigation-item">C</a>
-        <a href="#D" class="Quick-navigation-item">D</a>
-        <a href="#E" class="Quick-navigation-item">E</a>
+        <a id="data_step1" href="#capacity" class="Quick-navigation-item">1</a>
+        <a id="data_step2" href="#airlines" class="Quick-navigation-item">2</a>
+        <a id="data_step3" href="#centrality" class="Quick-navigation-item">3</a>
+        <a id="data_step4" href="#TOP30" class="Quick-navigation-item">4</a>
+        <a id="data_step5" href="#chinaEconomicZone" class="Quick-navigation-item">5</a>
+        <a id="data_step6" href="#china_xinan" class="Quick-navigation-item">6</a>
+        <a id="data_step7" href="#china_huazhongAndDongbei" class="Quick-navigation-item">7</a>
+        <a id="data_step8" href="#region_concat" class="Quick-navigation-item">8</a>
         <div class="Scroll-progress-indicator"></div>
       </nav>
       <input class="float-button hidden" id="hideMap" type="button" name="toggle" value="fold" checked="checked" />
@@ -388,8 +391,7 @@
                       " style="max-width: 500px" />
           </div> -->
         </div>
-
-        <div id="centrality" class="step">
+        <div id="centrality" class="step" data-step="3">
 
           <div id="console">
             <p>
@@ -412,8 +414,7 @@
             </div>
           </div>
         </div>
-
-        <div id="TOP30" class="step" data-step="3">
+        <div id="TOP30" class="step" data-step="4">
           <div class="content">
             <p>
               According to the airport center ranking of the city, the city is ranked TOP2 is still Beijing and
@@ -436,7 +437,7 @@
             </p>
           </div>
         </div>
-        <div id="china-economicZone" class="step" data-step="4">
+        <div id="chinaEconomicZone" class="step" data-step="5">
           <div class="content">
             <h2>长三角城市整体枢纽度强于京津冀</h2>
             <p>
@@ -465,7 +466,7 @@
             </p>
           </div>
         </div>
-        <div id="china-xinan" class="step" data-step="5">
+        <div id="china_xinan" class="step" data-step="6">
           <div class="content">
             <h2>Another core airport group is located in the southwest</h2>
             <p>Chengdu Shuangliu Airport (No. 4) and Chongqing Jiangbei Airport (No. 5) ranked more than Guangzhou
@@ -479,7 +480,7 @@
             </p>
           </div>
         </div>
-        <div id="china-huazhongAndDongbei" class="step" data-step="6">
+        <div id="china_huazhongAndDongbei" class="step" data-step="7">
           <div class="content">
             <p>
               Compared with the fierce struggling among East China, South China, and Southwest China, the Central and
@@ -495,7 +496,7 @@
             </p>
           </div>
         </div>
-        <div id="region-concat" class="step" data-step="7">
+        <div id="region_concat" class="step" data-step="8">
           <div class="content">
             <h2>全国地理区核心航空枢纽联通城市TOP10</h2>
             <p>
@@ -525,7 +526,7 @@
             </div>
           </div>
         </div>
-        <div id="gloucester" class="step" data-step="8">
+        <div id="gloucester" class="step" data-step="9">
           <div class="content">
             <p>At this point, we also peeped into the flight data about the future pattern of competition between cities
               and regions. The pattern of urban warfare has not changed much for many years, and the first-line is

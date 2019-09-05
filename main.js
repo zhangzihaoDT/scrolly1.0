@@ -102,6 +102,18 @@ function handleResize() {
 function handleStepEnter(response) {
   // response = { element, direction, index }
   console.log(response.element.id);
+  const data_step = {
+    capacity: data_step1,
+    airlines: data_step2,
+    centrality: data_step3,
+    TOP30: data_step4,
+    chinaEconomicZone: data_step5,
+    china_xinan: data_step6,
+    china_huazhongAndDongbei: data_step7,
+    region_concat: data_step8
+  };
+  console.log(Object.entries(data_step));
+
   const currentStep = response.element.id;
   const currentDirection = response.direction;
   const directionIs = (index, direction) => {
@@ -158,8 +170,8 @@ function handleStepEnter(response) {
       map.setLayoutProperty(china_area, "visibility", "none");
     });
   } else if (
-    directionIs("china-economicZone", "down") ||
-    directionIs("china-economicZone", "up")
+    directionIs("chinaEconomicZone", "down") ||
+    directionIs("chinaEconomicZone", "up")
   ) {
     map.easeTo({
       duration: 2000,
@@ -180,8 +192,8 @@ function handleStepEnter(response) {
       map.setLayoutProperty(china_area, "visibility", "none");
     });
   } else if (
-    directionIs("china-xinan", "down") ||
-    directionIs("china-xinan", "up")
+    directionIs("china_xinan", "down") ||
+    directionIs("china_xinan", "up")
   ) {
     map.flyTo({
       duration: 2000,
@@ -202,8 +214,8 @@ function handleStepEnter(response) {
     });
     map.setLayoutProperty(mapboxLayerXinan, "visibility", "visible");
   } else if (
-    directionIs("china-huazhongAndDongbei", "down") ||
-    directionIs("china-huazhongAndDongbei", "up")
+    directionIs("china_huazhongAndDongbei", "down") ||
+    directionIs("china_huazhongAndDongbei", "up")
   ) {
     map.flyTo({
       duration: 1500,
@@ -224,8 +236,8 @@ function handleStepEnter(response) {
     });
     map.setLayoutProperty(mapboxLayerXinan, "visibility", "none");
   } else if (
-    directionIs("region-concat", "down") ||
-    directionIs("region-concat", "up")
+    directionIs("region_concat", "down") ||
+    directionIs("region_concat", "up")
   ) {
     map.flyTo({
       duration: 1500,

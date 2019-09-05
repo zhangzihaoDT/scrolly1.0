@@ -238,7 +238,7 @@ var svgP1 = d3
   .attr("width", width + margin.left + margin.right)
   .attr("height", height / 2 + 20 + margin.top + margin.bottom)
   .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform", "translate(" + margin.left + "," + margin.top * 2 + ")");
 
 d3.csv("data/2008-2018airportCapacity.csv")
   .then(function(d) {
@@ -276,7 +276,7 @@ d3.csv("data/2008-2018airportCapacity.csv")
       .padding(0.2);
     svgP1
       .append("g")
-      .attr("transform", "translate(0," + height / 2 + ")")
+      .attr("transform", "translate(0," + -margin.top + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
       .attr("transform", "translate(0,0)rotate(-45)")
