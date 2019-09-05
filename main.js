@@ -101,7 +101,7 @@ function handleResize() {
 // scrollama event handlers
 function handleStepEnter(response) {
   // response = { element, direction, index }
-  // console.log(response.element.id);
+  console.log(response.element.id);
   const currentStep = response.element.id;
   const currentDirection = response.direction;
   const directionIs = (index, direction) => {

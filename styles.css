@@ -4,10 +4,10 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-.mapboxgl-ctrl-bottom-left,
+/* .mapboxgl-ctrl-bottom-left,
 .mapboxgl-ctrl-bottom-right {
   display: none;
-}
+} */
 @font-face {
   font-family: Iosevka-bold;
   src: local(Iosevka-bold),
@@ -186,7 +186,8 @@ input[type="range"]:focus {
   outline: none !important;
 }
 
-input[type="button"] {
+input[type="button"],
+a.button {
   cursor: pointer;
   line-height: 1rem;
   padding: 0.2rem 0.8rem;

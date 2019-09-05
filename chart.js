@@ -370,7 +370,7 @@ d3.csv("data/2018_centrality_edit.csv")
     return dataset;
   })
   .then(d => {
-    // console.log(dataset);
+    console.log(dataset);
     var color = d3
       .scaleOrdinal()
       .domain(

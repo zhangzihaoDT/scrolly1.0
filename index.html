@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>凌空经济</title>
+  <title>Behind the 30,000 flight data, the battle of the sky in 230 cities</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="styles.css" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js"></script>
@@ -73,6 +73,26 @@
 
   input[checked="release"].float-button {
     background-color: rgba(35, 212, 204, 0.9);
+  }
+
+  .Quick-navigation {
+    position: fixed;
+    z-index: 3;
+    bottom: 20px;
+    left: 10px;
+  }
+
+  .Quick-navigation-item {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    font-size: 1.3em;
+    transition: color 0.3s;
+    padding: 0.5em;
+  }
+
+  .Quick-navigation-item:hover,
+  .Quick-navigation-item.current {
+    color: #fff;
   }
 
   #menu {
@@ -248,7 +268,7 @@
     </video>
     <section id="menu" class="full-page">
       <div id="maskLoading" class="content">
-        <h1>3万条航班数据背后，230座城市的天空之战</h1>
+        <h1>Behind the 30,000 flight data, the battle of the sky in 230 cities</h1>
         <div class="loader">
           <div class="dot"></div>
           <div class="dot"></div>
@@ -256,36 +276,58 @@
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
-        <h6>请稍后，全文加载时间约8秒</h6>
+        <h6>Please wait a moment, the full text loading time is about 8 to 15 seconds.</h6>
       </div>
       <div class="photo">
         <div class="logo">
           <img src="./images/dt财经logo-02.png">
         </div>
         <div class="content">
-          <h1>3万条航班数据背后，230座城市的天空之战</h1>
+          <h1>Behind the 30,000 flight data, the battle of the sky in 230 cities</h1>
           <h4>
-            2018年，中国大陆已经有230个城市拥有定期通航的民航机场，全国全年的航空旅客总吞吐量超过12亿人次。随着北京大兴机场的建成通航、上海第三机场的规划，城市间的机场经济进入新一轮融合与竞争。站在城市研究的视角，机场吞吐量和航线通达情况一定程度上代表城市商旅活动的活跃度，进而与城市首位度和经济势能挂钩。通过机场的航线与客流数据，我们将尝试着描绘一个区域经济发展的立体图景，看城市及城市群如何吸纳和释放TA们强大的经济势能。
+            In 2018, 230 cities in mainland China already have regular civil aviation airports, with a total air
+            passenger throughput of more than 1.2 billion throughout the year. With the completion and navigation of
+            Daxing Airport in Beijing, the planning of Shanghai No. 3 Airport, the airport economy between cities enters
+            a new round of integration and competition.<br />From the perspective of urban research, airport throughput
+            and route access to a certain extent represent the activity of urban business travel activities, and then
+            linked to the urban primacy and economic potential energy.<br />Through the airport route and passenger flow
+            data, we will try to depict a three-dimensional picture of regional economic development, and see how cities
+            and urban agglomerations absorb and release the powerful economic potential energy of them.
             </4>
         </div>
         <div id="start" class="demo">
-          <a id="scrollDown"><span></span>滚动</a>
+          <a id="scrollDown"><span></span>SCROLL</a>
         </div>
 
       </div>
     </section>
     <section class="scrolly">
+      <nav class="Quick-navigation">
+        <a href="#A" class="Quick-navigation-item">A</a>
+        <a href="#B" class="Quick-navigation-item">B</a>
+        <a href="#C" class="Quick-navigation-item">C</a>
+        <a href="#D" class="Quick-navigation-item">D</a>
+        <a href="#E" class="Quick-navigation-item">E</a>
+        <div class="Scroll-progress-indicator"></div>
+      </nav>
       <input class="float-button hidden" id="hideMap" type="button" name="toggle" value="折叠" checked="checked" />
       <div id="map"></div>
       <article>
-        <div id="capacity" class="step">
+        <div id="capacity" class="step" data-step="1">
           <div class="content">
-            <h2>人口的聚集让城市出行需求不断扩大</h2>
+            <h2>The concentration of the population has increased the demand for urban travel gradually</h2>
             <p>
-              2009年至2018年十年间，中国新增了69个民航机场，旅客总吞吐量增长了1.6倍。2018年，全国吞吐量过千万人次的城市已经达到37个，而北京首都机场的旅客吞吐量终于突破1亿人次，成为继美国亚特兰大机场后，全球第二个旅客吞吐量过亿人次的机场。
+              In the decade from 2009 to 2018, China added 69 civil aviation airports, and the total passenger
+              throughput increased by 1.6 times.<br />In 2018, the number of cities with a throughput of over 10 million
+              people has reached 37, and the passenger throughput of Beijing Capital Airport has finally exceeded 100
+              million. It has become the second airport in the world with a passenger throughput of over 100 million
+              passengers after the Atlanta airport in the United States.
             </p>
             <p>
-              当把全部机场吞吐量变化加上地理位置的考察后，我们发现增长是围绕城市群或者说机场群扎堆发生的，尽管所有机场都存在增长，但京津冀、长三角、珠三角和成渝城市群的优势越来越显著。
+              After examining all the changes in airport throughput and geographical location, we found that growth
+              occurred around urban agglomerations or airport clusters. Although all airports have growth,
+              Beijing-Tianjin-Hebei, Yangtze River Delta, Pearl River Delta and Chengdu-Chongqing, the advantages of
+              urban agglomerations are becoming more and more significant.
             </p>
           </div>
           <div id="console">
@@ -317,18 +359,24 @@
           </div>
 
         </div>
-        <div id="airlines" class="step">
+        <div id="airlines" class="step" data-step="2">
           <div class="content">
             <p>
-              旅客吞吐量更多能表明商旅活动的活跃度，用来度量一个机场的枢纽程度却是不够的。要评估一个机场在这个网络中的重要程度，还需要回答这些问题：通过机场，一座城市连通了多少远方？与谁往来更加亲密？辐射势力范围有多大？
+              Passenger throughput is more indicative of the activity of business travel activities, but it is not
+              enough to measure the degree of hub of an airport. To assess the importance of an airport in this network,
+              you also need to answer these questions: How far is a city connected through the airport? Who is more
+              intimate with whom? What is the range of radiation power?
             </p>
-          </div>
-          <div class="content">
+            <br>
             <p>
-              我们借用了网络分析（Network
-              Analysis）中的中心度概念。中心度考量网络中各个节点的重要程度和核心性，通过量化节点之间的关系计算得出。与此相对应，机场就是一个个节点，通过航线的交织联系形成了一个航空网络。我们综合考虑了2018年各机场间的航线数量、进港出港航班数量等数据，通过算法计算得到每个机场的中心度。中心度越大，表示机场在整个航空网络中的重要性更高、区域辐射能力更强，这些强势机场也就是整个航空网络中的枢纽。
-
-            </p>
+              We borrow the concept of centrality in network analysis (Network Analysis). The centrality takes into
+              account the importance and core of each node in the network, and the relationship between the nodes is
+              calculated by quantifying the relationship between the nodes. Correspondingly, the airport is a node, and
+              an aviation network is formed through the interweaving of routes. We have comprehensively considered the
+              number of routes between airports in 2018, the number of inbound and outbound flights, and calculated the
+              centrality of each airport through an algorithm. The greater the centrality, the greater the importance of
+              the airport throughout the aviation network and the greater regional radiation capacity, which are the
+              hubs of the entire aviation network.</p>
           </div>
           <!-- <div class="illustration">
             <img src="illustration-small.png" srcset="
@@ -342,7 +390,9 @@
 
           <div id="console">
             <p>
-              将所有机场的中心度投射到地图上，我们发现全国机场中心度分布呈现出东高西低、南高北低的特点，这倒与很多经济发展相关指标的表现相似。
+              Projecting the centrality of all airports onto the map, we found that the central distribution of the
+              airport in the country is characterized by high east and west low, south high and north low, which is
+              similar to many economic development related indicators.
             </p>
             <!--创建一个图例-->
             <div class="session">
@@ -360,12 +410,19 @@
           </div>
         </div>
 
-        <div id="TOP30" class="step">
+        <div id="TOP30" class="step" data-step="3">
           <div class="content">
             <p>
-              按照机场中心度对城市进行排名，TOP2依旧是北京与上海，西安跃居第3位，中心度与上海浦东机场相差无几，此外，西南3城依旧占据着较高的排位。值得注意的是，广州与深圳的中心度排名并不够靠前，这意味着，尽管商旅活动活跃程度领先，但是与其他区域的连通性或者说对其他区域的影响力，还不够高。
+              According to the airport center ranking of the city, the city is ranked TOP2 is still Beijing and
+              Shanghai, Xi'an is ranked third, and the centrality is almost the same as Shanghai Pudong Airport. In
+              addition, the southwest 3 cities still occupy a higher ranking. It is worth noting that the central
+              rankings of Guangzhou and Shenzhen are not high enough. This means that although the activity of business
+              travel is leading, the connectivity with other regions or the influence on other regions is not high
+              enough.
             </p>
-            <p>在全国230个城市的机场中，中心度排至TOP 30的机场基本可认为是枢纽型机场。从枢纽机场的分布中，我们能看到城市与区域影响力更明显的特征。</p>
+            <p>Among the airports in 230 cities across the country, airports with a centrality ranking TOP 30 can be
+              considered as hub-type airports. From the distribution of hub-type airport, we can see the more obvious
+              characteristics of urban and regional influence</p>
           </div>
           <div id="console">
             <div id="bubble"></div>
@@ -376,40 +433,68 @@
             </p>
           </div>
         </div>
-        <div id="china-economicZone" class="step">
+        <div id="china-economicZone" class="step" data-step="4">
           <div class="content">
             <h2>长三角城市整体枢纽度强于京津冀</h2>
             <p>
-              国家发改委在2017年提出京津冀、长三角、珠三角将在2025年形成三大世界级机场群。截至2018年，这三个机场群的发展特点日趋明显。</p>
-            <p>
-              作为一个共同体，长三角现在已经建成16个民用机场，其中有3个是最高级别的4F级机场。2018年，长三角机场群的总吞吐量达到2.29亿。不管是机场总体数量、建设水平还是吞吐量规模，长三角都领先于另两大机场群。京津冀和珠三角各有2个4F机场，京津冀凭着机场数量的优势，吞吐量略大于珠三角。
+              In 2017, the National Development and Reform Commission proposed that Beijing-Tianjin-Hebei, Yangtze River
+              Delta and Pearl River Delta will form three world-class airport groups in 2025. By 2018, the development
+              characteristics of these three airport groups are becoming more and more obvious.<br />In the aviation
+              network, the Yangtze River Delta is undoubtedly the most influential urban agglomeration. The
+              comprehensive strength of Beijing-Tianjin-Hebei is not as good as that of the Yangtze River Delta, and it
+              is second in the regional competition.
             </p>
             <p>
-              从机场群的整体协同发展角度看，珠三角主要依靠广州白云机场和深圳宝安机场带动整个珠三角地区的对外联系，广州白云机场作为区域内的top机场占到总吞吐量的53%。上海浦东机场在长三角的吞吐量占比则更低，为32%。这保证了长三角各机场协同发展，内部差距不至于过大。
+              As a community, the Yangtze River Delta has now built 16 civil airports, three of which are the highest
+              level 4F airports. In 2018, the total throughput of the Yangtze River Delta airport group reached 229
+              million. Regardless of the overall number of airports, construction level or throughput scale, the Yangtze
+              River Delta is ahead of the other two major airport groups.
             </p>
+            <br />
             <p>
-              而在京津冀，巨无霸的北京首都机场占到了整个机场群吞吐量的70%，其他机场并没有贡献出太多力量。
-            </p>
-          </div>
-        </div>
-        <div id="china-xinan" class="step">
-          <div class="content">
-            <h2>另一核心机场群分布在西南。</h2>
-            <p>
-              成都双流机场（第4名）与重庆江北机场（第5名）中心度排名超过了广州白云，另有昆明长水机场（第7名）与贵阳龙洞堡机场（第14名）也排名靠前。成都双流机场从2011年开始，吞吐量连续八年超过深圳宝安机场，并且在2015年超过了上海虹桥机场后，一直稳坐吞吐量第四的宝座。中心度和吞吐量背后，这片土地在经济崛起的跑道上已开始加速，不仅坐拥得天独厚的旅游资源，近年成渝两地的商业交流、经济活动密集，对于人才的吸引力越来越强。
-            </p>
-          </div>
-        </div>
-        <div id="china-huazhongAndDongbei" class="step">
-          <div class="content">
-            <p>
-              在城市航空网络里，和龙争虎斗的华东、华南、西南等地相比，华中和东北则有一种“热闹都是ta们的”的落寞。华中的长沙黄花机场（第12名）、郑州新郑机场（第13名）、武汉天河机场（第22名）都算是枢纽，但奈何实力比较平均，缺乏一个更显眼的区域领头者。不过，这与地理区位对航空的依赖度、发达的高铁分流等原因相关，也并不能就此绝对地说明华中失意。
-              地理位置边角、高铁不够发达的东北，弱势却实在没有上述理由，枢纽机场在机场中心度TOP30中位列中下游，着实就是这些年发展的另一道缩影。
+              From the point of view of the overall coordinated development of the airport group, the Pearl River Delta
+              mainly relies on Guangzhou Baiyun Airport and Shenzhen Baoan Airport to drive the external relations of
+              the whole Pearl River Delta region. Guangzhou Baiyun Airport, as the top airport in the region, accounts
+              for 53% of the total throughput. Shanghai Pudong Airport has a lower throughput ratio of 32% in the
+              Yangtze River Delta. This ensures the coordinated development of airports in the Yangtze River Delta, and
+              the internal gap is not too large. The Beijing-Capital International Airport in Beijing, Tianjin and Hebei
+              account for 70% of the total airport's throughput, and other airports do not contribute too much.
             </p>
           </div>
         </div>
-        <div id="region-concat" class="step">
+        <div id="china-xinan" class="step" data-step="5">
           <div class="content">
+            <h2>Another core airport group is located in the southwest</h2>
+            <p>Chengdu Shuangliu Airport (No. 4) and Chongqing Jiangbei Airport (No. 5) ranked more than Guangzhou
+              Baiyun, and Kunming Changshui Airport (No. 7) and Guiyang Longdongbao Airport (No. 14) also ranked high.
+              Chengdu Shuangliu International Airport started in 2011 with a continuous throughput of more than eight
+              years in Shenzhen Bao 'an Airport, and has been on the top of the fourth place after more than the
+              Shanghai Hongqiao Airport in 2015.<br />Behind the centrality and throughput, this land has begun to
+              accelerate on the runway of economic rise, not only sitting on unique tourism resources, but also the
+              commercial exchanges between Chengdu and Chongqing in recent years, the economic activity is dense, and it
+              is becoming more and more attractive to talents.
+            </p>
+          </div>
+        </div>
+        <div id="china-huazhongAndDongbei" class="step" data-step="6">
+          <div class="content">
+            <p>
+              Compared with the fierce struggling among East China, South China, and Southwest China, the Central and
+              Northeast China have a kind of “All the excitement is their loneliness ”.<br />Central China’s Changsha
+              Huanghua Airport (No. 12), Zhengzhou Xinzheng Airport (No. 13), and Wuhan Tianhe Airport (No. 22) are all
+              hubs, but their strength is relatively average, lacking a more conspicuous regional leader. However, this
+              is related to the dependence of geographical location on aviation and the diversion of developed
+              high-speed rail, which does not absolutely explain the frustration of central China.
+              <br />The geographical corner, the underdeveloped northeast of the high-speed rail, but there is no such
+              reason, the hub airport in the center of the airport TOP30 in the middle and lower reaches, is actually
+              another microcosm of the development in these years.
+
+            </p>
+          </div>
+        </div>
+        <div id="region-concat" class="step" data-step="7">
+          <div class="content">
+            <h2>全国地理区核心航空枢纽联通城市TOP10</h2>
             <p>
               透过城市群枢纽城市的联系动向，我们也大致窥见了几个城市群在航空网络上的互动轮廓。与枢纽城市群来往最亲密的，仍旧是枢纽城市群，京津冀、长三角、珠三角与成渝城市间联系颇密切，这一定程度上意味着几大核心城市群间紧密的商旅往来。再进一步在各城市群间区分下亲疏远近，除了前文提到的珠三角更爱上海，成渝东进的网络中，与长三角的关系并不如跟其他两个区域那般亲密。
               如果以辐射更多区域枢纽城市作为评价一个区域机场航空势力的标准，那么华东地区与西南地区无疑是势力最为磅礴的，这与地理位置靠边、要求更多远距离出行或许有些关系。但同样有类似情况的华北与东北，尽管坐拥北京，与其他区域航空枢纽城市的整体连接也还是稀薄。
@@ -427,7 +512,7 @@
               <input id="Guangzhou" type="button" name="toggle" value="广州" />
             </div>
             <div class="session">
-              <h3>全国地理区核心航空枢纽联通城市TOP10</h3>
+
               <div id="sankey"></div>
               <p class="remarks">
                 数据来源：
@@ -437,19 +522,32 @@
             </div>
           </div>
         </div>
-        <div id="gloucester" class="step">
+        <div id="gloucester" class="step" data-step="8">
           <div class="content">
-            <p>说到这里，关于未来城市与区域竞争的格局，我们在航班数据中也窥见了一角。城市战争的格局已经多年没有太大变化，一线稳固，强二线城市蠢蠢欲动，排名上下间或有些浮动——这在航空网络格局中也是一样。</p>
-            <p>
-              但代表未来的区域竞争看起来还存在变数，长三角一超多强，集体作战的辐射势力、融合程度将给城市群等级提升带来一些期待；双雄并起的珠三角次之，在接入粤港澳大湾区后存在诸多可能；成渝双生集西部万千宠爱于一身，新产业、商业和旅游开发都存在潜力。
+            <p>At this point, we also peeped into the flight data about the future pattern of competition between cities
+              and regions. The pattern of urban warfare has not changed much for many years, and the first-line is
+              stable. Strong second-tier cities are eager to move, and the rankings are somewhat floating. This is the
+              same in the aviation network.
+              <br />
+              However, it seems that there are still variables in the regional competition on behalf of the future. The
+              radiation power of collective combat in the Yangtze River Delta is super strong, and the degree of
+              integration will bring some expectations to the upgrading of urban agglomerations; The Pearl River Delta,
+              where both males and females co-exist, is the second, has many possibilities after it joins the Dawan
+              District of Guangdong, Hong Kong and Macao; The Chengdu-Chongqing twins are fascinating in the West, and
+              there is potential for new industries, businesses and tourism development.
+
+              <br />The regional development issues often discussed by Beijing-Tianjin-Hebei old-fashioned people are
+              also reflected in the route network hub. Even if they have the strongest hub cities in the country, when
+              talking about the overall energy level of the urban agglomeration, the combat effectiveness is often
+              difficult to explode.
+              <br />What is certain is that the competition in urban agglomerations is becoming more and more intense.
             </p>
-            <p>京津冀老生常谈的区域发展问题，在航线网络枢纽度中亦体现出来，即使拥有全国最强枢纽城市，但当谈及城市群整体能级时，战斗力往往难以爆表。</p>
-            <p>可以肯定的是，城市群的竞争，正在越来越激烈。</p>
           </div>
           <div id="console">
-            <input id="getback" type="button" name="toggle" value="返回首页" checked="checked" />
+            <div class="row" id="nav">
+              <input id="getback" type="button" name="toggle" value="返回顶部" checked="checked" />
+            </div>
           </div>
-
         </div>
       </article>
     </section>
