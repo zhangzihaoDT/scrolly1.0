@@ -71,7 +71,10 @@ article {
   display: flex;
   justify-content: left;
   flex-direction: column;
-  padding: 5vh 20px;
+  padding: 0 20px;
+}
+#dviz-hbar {
+  margin-top: -6vh;
 }
 h1 {
   font-family: DIN-Bold;
@@ -283,11 +286,8 @@ input[type="button"]:focus {
     width: 60vw;
     margin: 0vh auto 10vh !important;
   }
-  .footer-one,
-  .footer-three {
-    background-color: #5995da;
-    flex: initial;
-    width: 100px;
+  .footer-item {
+    text-align: right !important;
   }
 }
 /*add*/
@@ -461,4 +461,13 @@ input[type="button"]:focus {
   100% {
     transform: scale(1);
   }
+}
+.axis {
+  font-size: 13px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  display: none;
 }

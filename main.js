@@ -87,6 +87,29 @@ function getZoomValue() {
   }
 }
 
+function naviFind() {
+  window.addEventListener("scroll", function(e) {
+    var scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop > window.innerHeight) {
+      document.querySelector(".Quick-navigation").classList.remove("hidden");
+    } else {
+      document.querySelector(".Quick-navigation").classList.add("hidden");
+    }
+  });
+  const allMenu = document.querySelectorAll(".Quick-navigation-item");
+  for (const menuEle of allMenu) {
+    const menuId = menuEle.id;
+    // const cardId = menuEle.getAttribute("href").slice(1);
+    document.getElementById(menuId).addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const cardId = e.currentTarget.getAttribute("href").slice(1);
+      document.getElementById(cardId).scrollIntoView({ behavior: "smooth" });
+    });
+  }
+}
+
 // generic window resize listener event
 function handleResize() {
   document.addEventListener("resize", function(event) {
@@ -103,18 +126,27 @@ function handleStepEnter(response) {
   // response = { element, direction, index }
   console.log(response.element.id);
   const data_step = {
-    capacity: data_step1,
-    airlines: data_step2,
-    centrality: data_step3,
-    TOP30: data_step4,
-    chinaEconomicZone: data_step5,
-    china_xinan: data_step6,
-    china_huazhongAndDongbei: data_step7,
-    region_concat: data_step8
+    capacity: "data_step1",
+    airlines: "data_step2",
+    centrality: "data_step3",
+    TOP30: "data_step4",
+    chinaEconomicZone: "data_step5",
+    china_xinan: "data_step6",
+    china_huazhongAndDongbei: "data_step7",
+    region_concat: "data_step8"
   };
-  console.log(Object.entries(data_step));
+  // console.log(Object.entries(data_step));
 
   const currentStep = response.element.id;
+  const menuId = data_step[currentStep];
+  if (menuId) {
+    const allMenu = document.querySelectorAll(".Quick-navigation-item");
+    for (const menuEle of allMenu) {
+      menuEle.classList.remove("current");
+    }
+    document.getElementById(menuId).classList.add("current");
+  }
+  console.log(menuId);
   const currentDirection = response.direction;
   const directionIs = (index, direction) => {
     return currentStep === index && currentDirection === direction;
@@ -286,6 +318,7 @@ function proportion() {
   }
 }
 function init() {
+  naviFind();
   setupStickyfill();
   getZoomValue();
   // 1. 强制调整大小以确保将适当的尺寸发送到scrollama
@@ -451,7 +484,7 @@ map.on("load", function(e) {
             }
           });
         });
-
+      console.log(csvData[3]);
       csvData[3].forEach(item => {
         return regionLines.features.push({
           type: "Feature",
@@ -1122,6 +1155,7 @@ map.on("load", function(e) {
       });
       document.getElementById("filters").addEventListener("click", function(e) {
         var region = e.target.value;
+        // console.log(region);
         // update the map filter
         if (region === "TOP10") {
           filterRegion = [
@@ -1143,7 +1177,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 40
           });
-        } else if (region === "北京") {
+        } else if (region === "Beijing") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
@@ -1169,7 +1203,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "上海") {
+        } else if (region === "Shanghai") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
@@ -1195,7 +1229,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "哈尔滨") {
+        } else if (region === "Harbin") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
@@ -1221,7 +1255,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "西安") {
+        } else if (region === "Xi'an") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
@@ -1247,7 +1281,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "长沙") {
+        } else if (region === "Changsha") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
@@ -1273,7 +1307,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "成都") {
+        } else if (region === "Chengdu") {
           filterRegion = [
             "match",
             ["get", "departure_code"],
@@ -1299,7 +1333,7 @@ map.on("load", function(e) {
           map.fitBounds(bounds, {
             padding: 20
           });
-        } else if (region === "广州") {
+        } else if (region === "Guangzhou") {
           filterRegion = [
             "match",
             ["get", "departure_code"],

@@ -2,9 +2,15 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta name="title" content="DT财经">
+  <meta name="description" content="用数据度量商业 让数据自由跨界">
+  <meta name="keywords" content="DT财经,DT一财,数据财经,数据新闻,商业数据,数据报告,消费升级,消费数据,DTcaijing,数据新媒体,CBNData">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Behind the 30,000 flight data, the battle of the sky in 230 cities</title>
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="//assets.cbndata.org/dt-web-pc/0.1.0/static/favicon.png?213" type="image/x-icon">
+  <link rel="apple-touch-icon" href="//assets.cbndata.org/dt-web-pc/0.1.0/static/favicon.png?213" />
+  <title>Data visualization|DT</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="styles.css" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js"></script>
@@ -95,6 +101,7 @@
   .Quick-navigation-item:hover,
   .Quick-navigation-item.current {
     color: #fff;
+    font-family: DIN-Bold;
   }
 
   #menu {
@@ -102,6 +109,9 @@
     height: auto;
   }
 
+  .session {
+    margin-bottom: 20px;
+  }
 
   .photo {
     height: 100vh;
@@ -155,15 +165,17 @@
   }
 
   .footer {
+    background-color: #292d36;
     width: 100%;
     display: flex;
     justify-content: center;
   }
 
   .footer-item {
-    background-color: #292d36;
-    height: 10vh;
     flex: 1;
+    text-align: left;
+    margin: 32px;
+    color: #868e9e;
   }
 
   .illustration img {
@@ -305,7 +317,7 @@
       </div>
     </section>
     <section class="scrolly">
-      <nav class="Quick-navigation">
+      <nav class="Quick-navigation hidden">
         <a id="data_step1" href="#capacity" class="Quick-navigation-item">1</a>
         <a id="data_step2" href="#airlines" class="Quick-navigation-item">2</a>
         <a id="data_step3" href="#centrality" class="Quick-navigation-item">3</a>
@@ -321,7 +333,7 @@
       <article>
         <div id="capacity" class="step" data-step="1">
           <div class="content">
-            <h2>The concentration of the population has increased the demand for urban travel gradually</h2>
+            <h2>1.The concentration of the population has increased the demand for urban travel gradually</h2>
             <p>
               In the decade from 2009 to 2018, China added 69 civil aviation airports, and the total passenger
               throughput increased by 1.6 times.<br />In 2018, the number of cities with a throughput of over 10 million
@@ -337,36 +349,37 @@
             </p>
           </div>
           <div id="console">
-            <!--创建一个图例-->
             <div class="session">
-              <h3>吞吐量（人次）</h3>
+              <h3> The Growth of Passenger Throughout from 2009 to 2018</h3>
+              <!--创建一个图例-->
+              <h3> Legend | Passenger Throughout（Person）</h3>
               <div class="row colors"></div>
               <div class="row labels">
-                <div class="label">20万</div>
-                <div class="label">1百万</div>
-                <div class="label">1千万</div>
-                <div class="label">2千万</div>
-                <div class="label">5千万</div>
-                <div class="label">1亿</div>
+                <div class="label">200K</div>
+                <div class="label">1M</div>
+                <div class="label">10M</div>
+                <div class="label">20M</div>
+                <div class="label">50M</div>
+                <div class="label">1B</div>
               </div>
             </div>
-            <h3>2009～2018全国机场年吞吐量增长情况</h3>
             <!--创建一个时间滑块-->
             <div class="session" id="sliderbar">
-              <h2><label id="active-hour">2018</label>年</h2>
+              <h2>Year<label id="active-hour">2018</label></h2>
               <input id="slider" class="custom" type="range" min="2009" max="2018" step="1" value="2018" />
             </div>
             <div id="histogram"></div>
             <p class="remarks">
-              数据来源：
-              <a href="http://www.caac.gov.cn/XXGK/XXGK/index_172.html?fl=11">中国民航局</a>
-              <br />注：统计数据不包括港澳台
+              Data source：
+              <a href="http://www.caac.gov.cn/XXGK/XXGK/index_172.html?fl=11">CAAC</a>
+              <br />Excluding Hong Kong, Macao and Taiwan.
             </p>
           </div>
 
         </div>
         <div id="airlines" class="step" data-step="2">
           <div class="content">
+            <h2>2.2018 China Aviation Network Among Cities</h2>
             <p>
               Passenger throughput is more indicative of the activity of business travel activities, but it is not
               enough to measure the degree of hub of an airport. To assess the importance of an airport in this network,
@@ -392,16 +405,10 @@
           </div> -->
         </div>
         <div id="centrality" class="step" data-step="3">
-
           <div id="console">
-            <p>
-              Projecting the centrality of all airports onto the map, we found that the central distribution of the
-              airport in the country is characterized by high east and west low, south high and north low, which is
-              similar to many economic development related indicators.
-            </p>
             <!--创建一个图例-->
             <div class="session">
-              <h3>网络中心度</h3>
+              <h2>3.Network Centrality</h2>
               <div class="row colors"></div>
               <div class="row labels">
                 <div class="label">0</div>
@@ -409,13 +416,21 @@
                 <div class="label">0.4</div>
                 <div class="label">0.6</div>
                 <div class="label">0.8</div>
-                <div class="label">1</div>
+                <div class="label">1.0</div>
               </div>
             </div>
+          </div>
+          <div class="content">
+            <p>
+              Projecting the centrality of all airports onto the map, we found that the central distribution of the
+              airport in the country is characterized by high east and west low, south high and north low, which is
+              similar to many economic development related indicators.
+            </p>
           </div>
         </div>
         <div id="TOP30" class="step" data-step="4">
           <div class="content">
+            <h2>4.TOP30 Centrality Ranking</h2>
             <p>
               According to the airport center ranking of the city, the city is ranked TOP2 is still Beijing and
               Shanghai, Xi'an is ranked third, and the centrality is almost the same as Shanghai Pudong Airport. In
@@ -429,17 +444,20 @@
               characteristics of urban and regional influence</p>
           </div>
           <div id="console">
-            <div id="bubble"></div>
+            <div id="dviz-hbar"></div>
             <p class="remarks">
-              数据来源：
-              <a href="https://data.variflight.com/">飞常准</a>
-              <br />注：本文的中心度主要指网络分析中的度中心度，通过全国机场在2018年全年航线数量和出港、入港的航班量等因素算法计算得到，用以衡量节点在网络中的重要程度。统计数据不包括港澳台。
+              Data Source:
+              <a href="https://data.variflight.com/">Variflight</a>
+              <br /> Numbers of flight routes between airports, inbound flights, and outbound flights in 2018 are
+              considered as factors of calculating centrality of each airport in the whole country through an algorithm.
+              Excluding Hong Kong, Macao and Taiwan
             </p>
           </div>
         </div>
         <div id="chinaEconomicZone" class="step" data-step="5">
           <div class="content">
-            <h2>长三角城市整体枢纽度强于京津冀</h2>
+            <h2>5.The transportation capacity and degree of hubs of Yangtze River Delta is ahead of
+              Beijing-Tianjin-Hebei</h2>
             <p>
               In 2017, the National Development and Reform Commission proposed that Beijing-Tianjin-Hebei, Yangtze River
               Delta and Pearl River Delta will form three world-class airport groups in 2025. By 2018, the development
@@ -468,7 +486,7 @@
         </div>
         <div id="china_xinan" class="step" data-step="6">
           <div class="content">
-            <h2>Another core airport group is located in the southwest</h2>
+            <h2>6.Another core airport group is located in the southwest</h2>
             <p>Chengdu Shuangliu Airport (No. 4) and Chongqing Jiangbei Airport (No. 5) ranked more than Guangzhou
               Baiyun, and Kunming Changshui Airport (No. 7) and Guiyang Longdongbao Airport (No. 14) also ranked high.
               Chengdu Shuangliu International Airport started in 2011 with a continuous throughput of more than eight
@@ -482,6 +500,7 @@
         </div>
         <div id="china_huazhongAndDongbei" class="step" data-step="7">
           <div class="content">
+            <h2>7.Airports in Central China and Northeast China are Less Competitive</h2>
             <p>
               Compared with the fierce struggling among East China, South China, and Southwest China, the Central and
               Northeast China have a kind of “All the excitement is their loneliness ”.<br />Central China’s Changsha
@@ -492,42 +511,51 @@
               <br />The geographical corner, the underdeveloped northeast of the high-speed rail, but there is no such
               reason, the hub airport in the center of the airport TOP30 in the middle and lower reaches, is actually
               another microcosm of the development in these years.
-
             </p>
           </div>
         </div>
         <div id="region_concat" class="step" data-step="8">
           <div class="content">
-            <h2>全国地理区核心航空枢纽联通城市TOP10</h2>
+            <h2>8.TOP10 Hub Cities</h2>
             <p>
-              透过城市群枢纽城市的联系动向，我们也大致窥见了几个城市群在航空网络上的互动轮廓。与枢纽城市群来往最亲密的，仍旧是枢纽城市群，京津冀、长三角、珠三角与成渝城市间联系颇密切，这一定程度上意味着几大核心城市群间紧密的商旅往来。再进一步在各城市群间区分下亲疏远近，除了前文提到的珠三角更爱上海，成渝东进的网络中，与长三角的关系并不如跟其他两个区域那般亲密。
-              如果以辐射更多区域枢纽城市作为评价一个区域机场航空势力的标准，那么华东地区与西南地区无疑是势力最为磅礴的，这与地理位置靠边、要求更多远距离出行或许有些关系。但同样有类似情况的华北与东北，尽管坐拥北京，与其他区域航空枢纽城市的整体连接也还是稀薄。
+              According to the flight routes between hub cities of the airport groups, we could observe the interactions
+              among these cities on the aviation network. Major airport groups usually have strong connections. The
+              flight routes between Chengdu-Chongqing and the cities in the three major airport groups
+              (Beijing-Tianjin-Hebei, Yangzte River Delta and Pearl River Delta) indicated frequent business travels
+              among hub cities. Further more, as mentioned before that more flights travel from Pearl River Delta to
+              Shanghai, Chengdu-Chongqing is favored by Beijing-Tianjin-Hebei and Pearl River Delta travelers. If the
+              radiation power of hub cities difines the level of each airport cluster, East China and Southwest China
+              are undoubtedly the most powerful areas since the remote geographical locations request more long distant
+              travelling. One the othe hand, although North China and Northeast China cities are close to Beijing, they
+              are still facing the problem of weak connections on the aviation network.
             </p>
           </div>
           <div id="console">
             <div class="row" id="filters">
               <input id="all" type="button" name="toggle" value="TOP10" checked="checked" />
-              <input id="Beijing" type="button" name="toggle" value="北京" />
-              <input id="Shanghai" type="button" name="toggle" value="上海" />
-              <input id="Harbin" type="button" name="toggle" value="哈尔滨" />
-              <input id="Xi'an" type="button" name="toggle" value="西安" />
-              <input id="Changsha" type="button" name="toggle" value="长沙" />
-              <input id="Chengdu" type="button" name="toggle" value="成都" />
-              <input id="Guangzhou" type="button" name="toggle" value="广州" />
+              <input id="Beijing" type="button" name="toggle" value="Beijing" />
+              <input id="Shanghai" type="button" name="toggle" value="Shanghai" />
+              <input id="Harbin" type="button" name="toggle" value="Harbin" />
+              <input id="Xi'an" type="button" name="toggle" value="Xi'an" />
+              <input id="Changsha" type="button" name="toggle" value="Changsha" />
+              <input id="Chengdu" type="button" name="toggle" value="Chengdu" />
+              <input id="Guangzhou" type="button" name="toggle" value="Guangzhou" />
             </div>
             <div class="session">
 
               <div id="sankey"></div>
               <p class="remarks">
-                数据来源：
-                <a href="https://data.variflight.com/">飞常准</a>
-                <br />注：统计数据不包括港澳台。线条粗细表示航班量班次数量。
+                Data Source：
+                <a href="https://data.variflight.com/">Variflight</a>
+                <br />Excluding Hong Kong, Macao and Taiwan. The thickness of lines indicates the number of
+                flights。
               </p>
             </div>
           </div>
         </div>
         <div id="gloucester" class="step" data-step="9">
           <div class="content">
+            <h2>9.Conclusion</h2>
             <p>At this point, we also peeped into the flight data about the future pattern of competition between cities
               and regions. The pattern of urban warfare has not changed much for many years, and the first-line is
               stable. Strong second-tier cities are eager to move, and the rankings are somewhat floating. This is the
@@ -549,17 +577,18 @@
           </div>
           <div id="console">
             <div class="row" id="nav">
-              <input id="getback" type="button" name="toggle" value="返回顶部" checked="checked" />
+              <input id="getback" type="button" name="toggle" value="Back to top" checked="checked" />
             </div>
           </div>
         </div>
       </article>
     </section>
     <section class="footer">
-      <div class="footer-item footer-one"></div>
-      <div class="footer-item footer-two"></div>
-      <div class="footer-item footer-three"></div>
+      <div class="footer-item footer-one">
+        <p>Copyright@CBN New Media Tech Inc.</p>
+      </div>
     </section>
+
   </div>
   <script>
     var check = false;

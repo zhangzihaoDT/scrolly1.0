@@ -238,7 +238,7 @@ var svgP1 = d3
   .attr("width", width + margin.left + margin.right)
   .attr("height", height / 2 + 20 + margin.top + margin.bottom)
   .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top * 2 + ")");
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("data/2008-2018airportCapacity.csv")
   .then(function(d) {
@@ -276,10 +276,10 @@ d3.csv("data/2008-2018airportCapacity.csv")
       .padding(0.2);
     svgP1
       .append("g")
-      .attr("transform", "translate(0," + -margin.top + ")")
+      .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
-      .attr("transform", "translate(0,0)rotate(-45)")
+      .attr("transform", "translate(-10,0)rotate(-45)")
       .style("text-anchor", "end");
 
     // Add Y axis
@@ -343,14 +343,13 @@ d3.csv("data/2008-2018airportCapacity.csv")
 
 var diameter = document.getElementById("sankey").getBoundingClientRect().width;
 var svgP2 = d3
-  .select("#bubble")
+  .select("#dviz-hbar")
   .append("svg")
-  .attr("width", diameter)
-  .attr("height", diameter)
-  .attr("class", "bubble");
-const dataset = {
-  children: []
-};
+  .attr("width", diameter + margin.top + margin.right)
+  .attr("height", height - margin.top - margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.right * 6 + "," + margin.top + ")");
+const dataset = [];
 d3.csv("data/2018_centrality_edit.csv")
   .then(function(data) {
     data
@@ -361,8 +360,8 @@ d3.csv("data/2018_centrality_edit.csv")
         return i < 30;
       })
       .forEach(function(node, index) {
-        return dataset.children.push({
-          Name: node.airport_name,
+        return dataset.push({
+          Name: node.node,
           region: node.air_region,
           Count: index + 1,
           size: eval(node.node_dc)
@@ -370,12 +369,18 @@ d3.csv("data/2018_centrality_edit.csv")
       });
     return dataset;
   })
-  .then(d => {
-    console.log(dataset);
+  .then(function(data) {
+    //sort bars based on value
+    data = data.sort(function(a, b) {
+      return d3.ascending(a.size, b.size);
+    });
+    var formatDecimalComma = d3.format(",.2f");
+    console.log(data);
+    //set up svg using margin conventions - we'll need plenty of room on the left for labels
     var color = d3
       .scaleOrdinal()
       .domain(
-        dataset.children.map(item => {
+        dataset.map(item => {
           // console.log(item.region);
           return item.region;
         })
@@ -389,61 +394,85 @@ d3.csv("data/2018_centrality_edit.csv")
         "#73f2bc",
         "#ef9970"
       ]);
+    var x = d3
+      .scaleLinear()
+      .range([0, width])
+      .domain([
+        0,
+        d3.max(data, function(d) {
+          return d.size;
+        })
+      ]);
 
-    var bubble = d3
-      .pack(dataset)
-      .size([diameter, diameter])
-      .padding(1.5);
+    var y = d3
+      .scaleBand()
+      .rangeRound([height, 0], 0.1)
+      .domain(
+        data.map(function(d) {
+          return d.Name;
+        })
+      );
 
-    var nodes = d3.hierarchy(dataset).sum(function(d) {
-      return d.size;
-    });
+    //make y axis to show bar names
+    var yAxis = d3.axisLeft(y);
 
-    var node = svgP2
-      .selectAll(".node")
-      .data(bubble(nodes).descendants())
-      .enter()
-      .filter(function(d) {
-        return !d.children;
-      })
+    var gy = svgP2
       .append("g")
-      .attr("class", "node")
-      .attr("transform", function(d) {
-        return "translate(" + d.x + "," + d.y + ")";
-      });
+      .attr("class", "y axis")
+      .call(yAxis);
 
-    node
-      .append("circle")
-      .attr("r", function(d) {
-        return d.r;
+    var bars = svgP2
+      .selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("g");
+
+    //append rects
+    bars
+      .append("rect")
+      .attr("y", function(d, i) {
+        console.log(i);
+        return y(d.Name);
+      })
+      .attr("height", y.bandwidth() / 2)
+      .attr("transform", "translate(" + 0 + "," + 5 + ")")
+      .attr("x", 0)
+      .attr("width", function(d) {
+        return x(d.size - 0.2);
       })
       .style("fill", function(d, i) {
-        return color(d.data.region);
+        return color(d.region);
       });
-
-    node
+    //add a value label to the right of each bar
+    bars
       .append("text")
-      .attr("dy", ".2em")
-      .style("text-anchor", "middle")
-      .text(function(d) {
-        return d.data.Name.substring(0, d.r / 3);
+      .attr("y", function(d) {
+        return y(d.Name) + y.bandwidth() / 2 + 4;
       })
-      .attr("font-family", "sans-serif")
-      .attr("font-size", function(d) {
-        return d.r / 10;
+      //x position is 3 pixels to the right of the bar
+      .attr("x", function(d) {
+        return x(d.size - 0.2) + 3;
       })
-      .attr("fill", "white");
-
-    node
-      .append("text")
-      .attr("dy", "1.3em")
-      .style("text-anchor", "middle")
       .text(function(d) {
-        return d.data.Count;
+        return formatDecimalComma(d.size);
       })
       .attr("font-family", "Gill Sans", "Gill Sans MT")
       .attr("font-size", function(d) {
-        return d.r / 5;
+        return 16;
+      })
+      .attr("fill", "white");
+    bars
+      .append("text")
+      .attr("y", function(d) {
+        return y(d.Name) + y.bandwidth() / 2 + 4;
+      })
+      //x position is 3 pixels to the right of the bar
+      .attr("x", -60)
+      .text(function(d) {
+        return d.Count;
+      })
+      .attr("font-size", function(d) {
+        return 14;
       })
       .attr("fill", "white");
   });
