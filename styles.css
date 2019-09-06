@@ -96,7 +96,7 @@ h3 {
   font-family: DIN-Bold;
   font-size: 1rem;
   font-weight: 300;
-  line-height: 20px;
+  line-height: 24px;
   margin-bottom: 10px;
   color: #f7f7f8;
 }
@@ -104,13 +104,13 @@ h3 {
 h4 {
   font-size: 0.75rem;
   line-height: 20px;
-  letter-spacing: 0.15rem;
+  letter-spacing: 0.1rem;
   font-weight: 100;
   color: white;
   margin-bottom: -10px;
 }
 h6 {
-  font-size: 0.625rem;
+  font-size: 0.675rem;
   font-weight: 100;
 }
 p {
@@ -133,7 +133,6 @@ a {
 
 #filters.row {
   height: 100%;
-  margin: -3rem 0 3rem;
 }
 
 .colors {
@@ -226,7 +225,7 @@ input[type="button"]:focus {
 }
 
 /* Tablet Styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
+@media only screen and (min-width: 401px) and (max-width: 812px) {
   body {
     background-image: linear-gradient(
       141deg,
@@ -243,7 +242,7 @@ input[type="button"]:focus {
 }
 
 /* Desktop Styles */
-@media only screen and (min-width: 961px) {
+@media only screen and (min-width: 813px) {
   .page {
     margin: 0 auto;
   }

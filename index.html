@@ -7,7 +7,6 @@
   <meta name="keywords" content="DT财经,DT一财,数据财经,数据新闻,商业数据,数据报告,消费升级,消费数据,DTcaijing,数据新媒体,CBNData">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="renderer" content="webkit">
   <link rel="shortcut icon" href="//assets.cbndata.org/dt-web-pc/0.1.0/static/favicon.png?213" type="image/x-icon">
   <link rel="apple-touch-icon" href="//assets.cbndata.org/dt-web-pc/0.1.0/static/favicon.png?213" />
   <title>Data visualization|DT</title>
@@ -140,7 +139,7 @@
 
   #start {
     position: absolute;
-    bottom: 5vh;
+    bottom: 0;
     z-index: 1;
   }
 
@@ -150,7 +149,7 @@
   }
 
   .logo {
-    margin: 0vh auto 25vh;
+    margin: 0vh auto 15vh;
     z-index: 1;
   }
 
@@ -299,15 +298,13 @@
         <div class="content">
           <h1>In 2018, </h1>
           <h4>
-            230 cities in mainland China already have regular civil aviation airports,with a total air passenger
-            throughput of more than 1.2 billion throughout the year. With the completion and
-            navigation of Daxing Airport in Beijing, the planning of Shanghai No. 3 Airport, the airport economy between
-            cities enters a new round of integration and competition.<br />From the perspective of urban research,
-            airport throughput and route access to a certain extent represent the activity of urban business travel
-            activities, and then linked to the urban primacy and economic potential energy.<br />Through the airport
-            route and passenger flow data, we will try to depict a three-dimensional picture of regional economic
-            development, and see how cities and urban agglomerations absorb and release the powerful economic potential
-            energy of them.
+            In 2018, 230 cities in mainland China already have regular civil aviation airports, with a total air
+            passenger throughput of more than 1.2 billion throughout the year. With the completion and navigation of
+            Daxing Airport in Beijing, the planning of Shanghai No. 3 Airport, the airport economy between cities enters
+            a new round of integration and competition.
+            <br />Through the airport routeline and passenger flow data, we will try to depict a three-dimensional
+            picture of regional economic development, and see how cities and urban agglomerations absorb and release the
+            powerful economic potential energy of them.
             </4>
         </div>
         <div id="start" class="demo">
@@ -333,7 +330,7 @@
       <article>
         <div id="capacity" class="step" data-step="1">
           <div class="content">
-            <h2>1.The concentration of the population has increased the demand for urban travel gradually</h2>
+            <h2>1.Iincreasinged the demand for urban travel in a decade</h2>
             <p>
               In the decade from 2009 to 2018, China added 69 civil aviation airports, and the total passenger
               throughput increased by 1.6 times.<br />In 2018, the number of cities with a throughput of over 10 million
@@ -381,21 +378,24 @@
           <div class="content">
             <h2>2.2018 China Aviation Network Among Cities</h2>
             <p>
-              Passenger throughput is more indicative of the activity of business travel activities, but it is not
-              enough to measure the degree of hub of an airport. To assess the importance of an airport in this network,
-              you also need to answer these questions: How far is a city connected through the airport? Who is more
-              intimate with whom? What is the range of radiation power?
+              Passenger throughput is more indicative of the activity of business travel activities, but if we want toit
+              is not enough to measure the degree of hub of an airport. To assess the importance of an airport in this
+              network, you also need to answer these questions: How far is a city connected through the airport? Who is
+              more intimate with whom? What is the range of radiation power?
+
             </p>
             <br>
             <p>
-              We borrow the concept of centrality in network analysis (Network Analysis). The centrality takes into
-              account the importance and core of each node in the network, and the relationship between the nodes is
-              calculated by quantifying the relationship between the nodes. Correspondingly, the airport is a node, and
-              an aviation network is formed through the interweaving of routes. We have comprehensively considered the
-              number of routes between airports in 2018, the number of inbound and outbound flights, and calculated the
-              centrality of each airport through an algorithm. The greater the centrality, the greater the importance of
+              We use the concept of centrality in Network Analysis. Calculated from the relationship between the
+              nodes，the centrality seeks to quantify the influence of every node in the network. We can take the airport
+              as a node, and an aviation network is formed through the interweaving of airlines. We have comprehensively
+              considered the number of airlines between airports in 2018, the number of inbound and outbound flights,
+              and calculated the centrality of each airport. The greater the centrality, the greater the importance of
               the airport throughout the aviation network and the greater regional radiation capacity, which are the
-              hubs of the entire aviation network.</p>
+              hubs of the entire aviation network.
+
+
+            </p>
           </div>
           <!-- <div class="illustration">
             <img src="illustration-small.png" srcset="
@@ -422,9 +422,10 @@
           </div>
           <div class="content">
             <p>
-              Projecting the centrality of all airports onto the map, we found that the central distribution of the
-              airport in the country is characterized by high east and west low, south high and north low, which is
-              similar to many economic development related indicators.
+              Projecting the centrality of all airports onto the map, we found that the distribution of the airports’
+              centrality is characterized by high east and west low, south high and north low, which is similar to
+              economic indicators.
+
             </p>
           </div>
         </div>
@@ -432,12 +433,12 @@
           <div class="content">
             <h2>4.TOP30 Centrality Ranking</h2>
             <p>
-              According to the airport center ranking of the city, the city is ranked TOP2 is still Beijing and
-              Shanghai, Xi'an is ranked third, and the centrality is almost the same as Shanghai Pudong Airport. In
-              addition, the southwest 3 cities still occupy a higher ranking. It is worth noting that the central
-              rankings of Guangzhou and Shenzhen are not high enough. This means that although the activity of business
-              travel is leading, the connectivity with other regions or the influence on other regions is not high
-              enough.
+              According to the airport centrality, the top 2 ariports is respectively located in Beijing and Shanghai,
+              Xi'an is ranked third, and the centrality is almost the same as Shanghai Pudong Airport. It is worth
+              noting that the central rankings of Guangzhou and Shenzhen are not high enough. This means that although
+              the activity of business travel is leading, the connectivity with other regions or the influence on other
+              regions is not high enough.
+
             </p>
             <p>Among the airports in 230 cities across the country, airports with a centrality ranking TOP 30 can be
               considered as hub-type airports. From the distribution of hub-type airport, we can see the more obvious
@@ -449,7 +450,8 @@
               Data Source:
               <a href="https://data.variflight.com/">Variflight</a>
               <br /> Numbers of flight routes between airports, inbound flights, and outbound flights in 2018 are
-              considered as factors of calculating centrality of each airport in the whole country through an algorithm.
+              considered as factors of calculating centrality of each airport in the whole country through an
+              algorithm.
               Excluding Hong Kong, Macao and Taiwan
             </p>
           </div>
@@ -488,13 +490,16 @@
           <div class="content">
             <h2>6.Another core airport group is located in the southwest</h2>
             <p>Chengdu Shuangliu Airport (No. 4) and Chongqing Jiangbei Airport (No. 5) ranked more than Guangzhou
-              Baiyun, and Kunming Changshui Airport (No. 7) and Guiyang Longdongbao Airport (No. 14) also ranked high.
+              Baiyun. Kunming Changshui Airport (No. 7) and Guiyang Longdongbao Airport (No. 14) also ranked high.
               Chengdu Shuangliu International Airport started in 2011 with a continuous throughput of more than eight
               years in Shenzhen Bao 'an Airport, and has been on the top of the fourth place after more than the
-              Shanghai Hongqiao Airport in 2015.<br />Behind the centrality and throughput, this land has begun to
-              accelerate on the runway of economic rise, not only sitting on unique tourism resources, but also the
-              commercial exchanges between Chengdu and Chongqing in recent years, the economic activity is dense, and it
-              is becoming more and more attractive to talents.
+              Shanghai Hongqiao Airport in 2015.
+              <br />
+              Behind the centrality and throughput, this land has begun to accelerate on the runway of economic rise,
+              not only sitting on unique tourism resources, but also the commercial exchanges between Chengdu and
+              Chongqing in recent years, the economic activity is dense, and it is becoming more and more attractive to
+              talents.
+
             </p>
           </div>
         </div>
@@ -502,8 +507,9 @@
           <div class="content">
             <h2>7.Airports in Central China and Northeast China are Less Competitive</h2>
             <p>
-              Compared with the fierce struggling among East China, South China, and Southwest China, the Central and
-              Northeast China have a kind of “All the excitement is their loneliness ”.<br />Central China’s Changsha
+              Compared with the fierce struggling among airports in East China, South China, and Southwest China, the
+              Central and Northeast China seems “ fall into depression ”.
+              <br />Central China’s Changsha
               Huanghua Airport (No. 12), Zhengzhou Xinzheng Airport (No. 13), and Wuhan Tianhe Airport (No. 22) are all
               hubs, but their strength is relatively average, lacking a more conspicuous regional leader. However, this
               is related to the dependence of geographical location on aviation and the diversion of developed
@@ -556,8 +562,7 @@
         <div id="gloucester" class="step" data-step="9">
           <div class="content">
             <h2>9.Conclusion</h2>
-            <p>At this point, we also peeped into the flight data about the future pattern of competition between cities
-              and regions. The pattern of urban warfare has not changed much for many years, and the first-line is
+            <p>The pattern of urban warfare has not changed much for many years, and the first-line is
               stable. Strong second-tier cities are eager to move, and the rankings are somewhat floating. This is the
               same in the aviation network.
               <br />

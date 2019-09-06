@@ -1,10 +1,6 @@
 var margin = { top: 30, right: 10, bottom: 10, left: 0 },
-  width =
-    document.getElementById("sankey").getBoundingClientRect().width -
-    margin.left -
-    margin.right,
-  //   height = window.innerHeight - margin.top - margin.bottom;
-  height = window.innerHeight / 2;
+  width = document.getElementById("sankey").getBoundingClientRect().width,
+  height = window.innerHeight / 2 - margin.top - margin.bottom;
 
 // format variables
 var formatNumber = d3.format(",.0f"), // zero decimal places
@@ -16,7 +12,7 @@ var formatNumber = d3.format(",.0f"), // zero decimal places
 var svg = d3
   .select("#sankey")
   .append("svg")
-  .attr("width", width + margin.left + margin.right)
+  .attr("width", width)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -60,7 +56,6 @@ d3.csv("data/sankey.csv")
     return nest_data;
   })
   .then(function(csv) {
-    console.log(csv);
     var color = d3
       .scaleOrdinal()
       .domain(
@@ -235,7 +230,7 @@ function onlyUnique(value, index, self) {
 var svgP1 = d3
   .select("#histogram")
   .append("svg")
-  .attr("width", width + margin.left + margin.right)
+  .attr("width", width)
   .attr("height", height / 2 + 20 + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -341,12 +336,11 @@ d3.csv("data/2008-2018airportCapacity.csv")
       });
   });
 
-var diameter = document.getElementById("sankey").getBoundingClientRect().width;
 var svgP2 = d3
   .select("#dviz-hbar")
   .append("svg")
-  .attr("width", diameter + margin.top + margin.right)
-  .attr("height", height - margin.top - margin.bottom)
+  .attr("width", width)
+  .attr("height", (height * 3) / 2 + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.right * 6 + "," + margin.top + ")");
 const dataset = [];
@@ -375,7 +369,6 @@ d3.csv("data/2018_centrality_edit.csv")
       return d3.ascending(a.size, b.size);
     });
     var formatDecimalComma = d3.format(",.2f");
-    console.log(data);
     //set up svg using margin conventions - we'll need plenty of room on the left for labels
     var color = d3
       .scaleOrdinal()
@@ -406,7 +399,7 @@ d3.csv("data/2018_centrality_edit.csv")
 
     var y = d3
       .scaleBand()
-      .rangeRound([height, 0], 0.1)
+      .rangeRound([(height * 3) / 2, 0], 0.1)
       .domain(
         data.map(function(d) {
           return d.Name;
@@ -430,15 +423,14 @@ d3.csv("data/2018_centrality_edit.csv")
     //append rects
     bars
       .append("rect")
-      .attr("y", function(d, i) {
-        console.log(i);
+      .attr("y", function(d) {
         return y(d.Name);
       })
       .attr("height", y.bandwidth() / 2)
       .attr("transform", "translate(" + 0 + "," + 5 + ")")
       .attr("x", 0)
       .attr("width", function(d) {
-        return x(d.size - 0.2);
+        return (x(d.size) * 2) / 3;
       })
       .style("fill", function(d, i) {
         return color(d.region);
@@ -451,14 +443,14 @@ d3.csv("data/2018_centrality_edit.csv")
       })
       //x position is 3 pixels to the right of the bar
       .attr("x", function(d) {
-        return x(d.size - 0.2) + 3;
+        return (x(d.size) * 2) / 3 + 3;
       })
       .text(function(d) {
         return formatDecimalComma(d.size);
       })
-      .attr("font-family", "Gill Sans", "Gill Sans MT")
+
       .attr("font-size", function(d) {
-        return 16;
+        return 14;
       })
       .attr("fill", "white");
     bars
@@ -474,5 +466,6 @@ d3.csv("data/2018_centrality_edit.csv")
       .attr("font-size", function(d) {
         return 14;
       })
+      .attr("font-family", "DIN-Bold")
       .attr("fill", "white");
   });

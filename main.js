@@ -24,9 +24,9 @@ function getZoomValue() {
   let gWidth = window.screen.width;
   if (gWidth <= 414) {
     zoom = 2.2;
-  } else if (gWidth <= 720) {
+  } else if (gWidth <= 640) {
     zoom = 2.8;
-  } else if (gWidth <= 960) {
+  } else if (gWidth <= 812) {
     zoom = 3.2;
   }
   // 1. update height of step elements
@@ -36,7 +36,7 @@ function getZoomValue() {
   var figureHeight = scrollyWidth * 1.025;
   var figureHeightFull = window.innerHeight;
   var figureMarginTop = 0;
-  if (window.innerWidth > 960) {
+  if (window.innerWidth > 812) {
     // step.style("height", stepH_desktop + "px");
     figure
       .style("height", figureHeightFull + "px")
@@ -124,7 +124,6 @@ function handleResize() {
 // scrollama event handlers
 function handleStepEnter(response) {
   // response = { element, direction, index }
-  console.log(response.element.id);
   const data_step = {
     capacity: "data_step1",
     airlines: "data_step2",
@@ -146,7 +145,6 @@ function handleStepEnter(response) {
     }
     document.getElementById(menuId).classList.add("current");
   }
-  console.log(menuId);
   const currentDirection = response.direction;
   const directionIs = (index, direction) => {
     return currentStep === index && currentDirection === direction;
@@ -484,7 +482,6 @@ map.on("load", function(e) {
             }
           });
         });
-      console.log(csvData[3]);
       csvData[3].forEach(item => {
         return regionLines.features.push({
           type: "Feature",
@@ -1401,10 +1398,10 @@ map.on("load", function(e) {
     popup
       .setLngLat(e.lngLat)
       .setHTML(
-        "<h2>" +
+        "<h3>" +
           "TOP " +
           description +
-          "</h2><p>" +
+          "</h3><p>" +
           e.features[0].properties.name +
           "</p>"
       )
@@ -1426,10 +1423,10 @@ map.on("load", function(e) {
     popup
       .setLngLat(e.lngLat)
       .setHTML(
-        "<h2>" +
+        "<h3>" +
           "TOP " +
           description +
-          "</h2><p>" +
+          "</h3><p>" +
           e.features[0].properties.name +
           "</p>"
       )
