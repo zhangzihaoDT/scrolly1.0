@@ -25,9 +25,9 @@ function getZoomValue() {
   if (gWidth <= 414) {
     zoom = 2.2;
   } else if (gWidth <= 640) {
-    zoom = 2.8;
-  } else if (gWidth <= 812) {
     zoom = 3.2;
+  } else if (gWidth <= 812) {
+    zoom = 4;
   }
   // 1. update height of step elements
   var stepH = Math.floor(window.innerHeight * 0.5); //向下取整
@@ -36,7 +36,7 @@ function getZoomValue() {
   var figureHeight = scrollyWidth * 1.025;
   var figureHeightFull = window.innerHeight;
   var figureMarginTop = 0;
-  if (window.innerWidth > 812) {
+  if (window.innerWidth > 811) {
     // step.style("height", stepH_desktop + "px");
     figure
       .style("height", figureHeightFull + "px")
